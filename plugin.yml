@@ -1,0 +1,17 @@
+name: Leeroy
+main: net.loadingchunks.plugins.Leeroy.Leeroy
+version: 0.1
+commands:
+    hc:
+        description: Control the HouseCarl system.
+        usage: |
+            /hc portal home - Set the current selection for Home World Portal detection.
+    leeroy:
+        description: Interacts with Leeroy NPCs, in the main worlds to port to your home world, in your home world to go back to the main world.
+        usage: |
+            /leeroy info - Introductory information when you first join the server.
+            /leeroy home - Teleports you to your home world.
+            /leeroy leave - [HOME ONLY] Leeroy disappears.
+            /leeroy summon - [HOME ONLY] Leeroy appears next to you.
+            /leeroy mainland - [HOME ONLY] Teleports you back to the main land.
+            /leeroy follow - [HOME ONLY] Leeroy will follow you (EXPERIMENTAL)
