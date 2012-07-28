@@ -146,25 +146,25 @@ public class BasicNPC
 		{
 			case 0: // Direction 0 = +Z
 			{
-				Location ret = new Location(l.getWorld(), l.getX(), l.getY(), (l.getZ()+1));
+				Location ret = new Location(l.getWorld(), l.getX(), (l.getY()+1.62), (l.getZ()+1));
 				return ret;
 			}
 			
 			case 1: // Direction 1 = -X
 			{
-				Location ret = new Location(l.getWorld(), (l.getX()-1), l.getY(), l.getZ());
+				Location ret = new Location(l.getWorld(), (l.getX()-1), (l.getY()+1.62), l.getZ());
 				return ret;
 			}
 			
 			case 2: // Direction 2 = -Z
 			{
-				Location ret = new Location(l.getWorld(), l.getX(), l.getY(), (l.getZ()-1));
+				Location ret = new Location(l.getWorld(), l.getX(), (l.getY()+1.62), (l.getZ()-1));
 				return ret;
 			}
 			
 			case 3: // Direction 3 = +Z
 			{
-				Location ret = new Location(l.getWorld(), (l.getX()+1), l.getY(), l.getZ());
+				Location ret = new Location(l.getWorld(), (l.getX()+1), (l.getY()+1.62), l.getZ());
 				return ret;
 			}
 			
