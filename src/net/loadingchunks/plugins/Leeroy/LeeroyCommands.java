@@ -122,6 +122,49 @@ public class LeeroyCommands implements CommandExecutor
 					}
 				}
 				return true;
+			} else if(args[0].equalsIgnoreCase("look"))
+			{
+				String name;
+				Integer radius = 5;
+				
+				if(!(sender instanceof Player))
+					return false;
+				
+				if(!LeeroyPermissions.canLook((Player)sender))
+				{
+					sender.sendMessage("[LEEROY] This command is op-only!");
+					return false;
+				}
+
+				if(args.length < 2)
+					return false;
+				
+				name = args[1];
+
+				if(args.length == 3)
+				{
+					radius = Integer.parseInt(args[2]);
+				}
+				
+				Player p = (Player)sender;
+				
+				for(Entity e : p.getNearbyEntities(radius, radius, radius))
+				{
+					if(e instanceof HumanEntity)
+					{
+						List<MetadataValue> md = e.getMetadata("leeroy_id");
+						List<MetadataValue> mdtype = e.getMetadata("leeroy_type");
+
+						if(md.size() > 0)
+						{
+							if(((BasicNPC)this.plugin.NPCList.get(md.get(0).asString())).name.equalsIgnoreCase(name) || name.equalsIgnoreCase("*"))
+							{
+								((BasicNPC)this.plugin.NPCList.get(md.get(0).asString())).npc.lookAtPoint(((Player)sender).getLocation());
+							}
+						}
+					}
+				}
+				return true;
 			}
 		}
 		

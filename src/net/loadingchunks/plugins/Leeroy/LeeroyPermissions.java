@@ -13,5 +13,10 @@ public class LeeroyPermissions {
 	{
 		return p.isOp();
 	}
+	
+	public static boolean canLook(Player p)
+	{
+		return p.isOp();
+	}
 
 }
