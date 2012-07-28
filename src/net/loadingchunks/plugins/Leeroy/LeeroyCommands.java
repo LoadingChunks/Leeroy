@@ -137,7 +137,10 @@ public class LeeroyCommands implements CommandExecutor
 				}
 
 				if(args.length < 2)
+				{
+					sender.sendMessage("[LEEROY] Not enough args!");
 					return false;
+				}
 				
 				name = args[1];
 
