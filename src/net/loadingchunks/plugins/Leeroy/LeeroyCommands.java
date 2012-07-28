@@ -73,6 +73,9 @@ public class LeeroyCommands implements CommandExecutor
 				npc.spawn(args[1], name, ((Player)sender).getLocation(), "", "", "", "", true, ((Player)sender).getWorld().getName(), null);
 
 				return true;
+			} else if(args[0].equalsIgnoreCase("angle") && sender instanceof Player)
+			{
+				sender.sendMessage("You Yaw is " + ((Player)sender).getLocation().getYaw() + " and your pitch is " + ((Player)sender).getLocation().getPitch() + ".");
 			}
 			else if(args[0].equalsIgnoreCase("kill"))
 			{
