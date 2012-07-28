@@ -94,6 +94,7 @@ public class LeeroyPlayerListener implements Listener {
 				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getPlayer().getWorld().getName(), event.getPlayer().getWorld().getName() + "_butler");
 			}
 		}
+			
 	}
 	
 	@EventHandler
