@@ -1,6 +1,7 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
+import net.minecraft.server.MathHelper;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -50,7 +51,7 @@ public class BasicNPC
 		if(isnew)
 			this.plugin.sql.AddNPC(id, name, hrtype, l, world);
 		
-		this.npc.moveTo(l);
+		this.npc.lookAtPoint(this.getForward(l));
 		
 		this.message1 = msg1;
 		this.message2 = msg2;
@@ -135,5 +136,39 @@ public class BasicNPC
 			return true;
 		} else
 			return false;
+	}
+	
+	public Location getForward(Location l)
+	{
+		int direction = MathHelper.floor((double)((l.getYaw() * 4F) / 360F) + 0.5D) & 3;
+		
+		switch(direction)
+		{
+			case 0: // Direction 0 = +Z
+			{
+				Location ret = new Location(l.getWorld(), l.getX(), l.getY(), (l.getZ()+1));
+				return ret;
+			}
+			
+			case 1: // Direction 1 = -X
+			{
+				Location ret = new Location(l.getWorld(), (l.getX()-1), l.getY(), l.getZ());
+				return ret;
+			}
+			
+			case 2: // Direction 2 = -Z
+			{
+				Location ret = new Location(l.getWorld(), l.getX(), l.getY(), (l.getZ()-1));
+				return ret;
+			}
+			
+			case 3: // Direction 3 = +Z
+			{
+				Location ret = new Location(l.getWorld(), (l.getX()+1), l.getY(), l.getZ());
+				return ret;
+			}
+			
+			default: return l;
+		}
 	}
 }

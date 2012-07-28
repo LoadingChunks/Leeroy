@@ -162,7 +162,7 @@ public class LeeroyCommands implements CommandExecutor
 						{
 							if(((BasicNPC)this.plugin.NPCList.get(md.get(0).asString())).name.equalsIgnoreCase(name) || name.equalsIgnoreCase("*"))
 							{
-								((BasicNPC)this.plugin.NPCList.get(md.get(0).asString())).npc.lookAtPoint(((Player)sender).getLocation());
+								((BasicNPC)this.plugin.NPCList.get(md.get(0).asString())).npc.lookAtPoint(((Player)sender).getEyeLocation());
 							}
 						}
 					}
