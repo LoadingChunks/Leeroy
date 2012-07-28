@@ -50,6 +50,8 @@ public class BasicNPC
 		if(isnew)
 			this.plugin.sql.AddNPC(id, name, hrtype, l, world);
 		
+		this.npc.lookAtPoint(l);
+		
 		this.message1 = msg1;
 		this.message2 = msg2;
 		this.message3 = msg3;

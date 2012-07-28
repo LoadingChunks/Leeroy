@@ -76,6 +76,7 @@ public class LeeroyCommands implements CommandExecutor
 			} else if(args[0].equalsIgnoreCase("angle") && sender instanceof Player)
 			{
 				sender.sendMessage("You Yaw is " + ((Player)sender).getLocation().getYaw() + " and your pitch is " + ((Player)sender).getLocation().getPitch() + ".");
+				return true;
 			}
 			else if(args[0].equalsIgnoreCase("kill"))
 			{
