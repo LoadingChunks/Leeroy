@@ -52,6 +52,18 @@ public class LeeroySQL {
 		} catch ( SQLException e ) { e.printStackTrace(); }
  	}
 	
+	public void RemoveNPC(String id)
+	{
+		try {
+			this.plugin.log.info("[LEEROY] Deleting NPC from Database. (ID: " + id + ")");
+			PreparedStatement stat = con.prepareStatement("DELETE FROM `leeroy_npc` WHERE id = ?");
+			
+			stat.setString(1, id);
+			
+			stat.execute();
+		} catch ( SQLException e ) { e.printStackTrace(); }
+	}
+	
 	public void PopNPCs()
 	{
 		try {
@@ -64,7 +76,7 @@ public class LeeroySQL {
 				result.first();
 				do
 				{
-					this.plugin.npcs.spawn(result.getString("type"), result.getString("name"), new Location(this.plugin.getServer().getWorld(result.getString("world")), result.getDouble("x"), result.getDouble("y"), result.getDouble("z"), result.getFloat("yaw"), result.getFloat("pitch")), result.getString("message1"), result.getString("message2"), result.getString("message3"), result.getString("message4"), false, result.getString("world"));
+					this.plugin.npcs.spawn(result.getString("type"), result.getString("name"), new Location(this.plugin.getServer().getWorld(result.getString("world")), result.getDouble("x"), result.getDouble("y"), result.getDouble("z"), result.getFloat("yaw"), result.getFloat("pitch")), result.getString("message1"), result.getString("message2"), result.getString("message3"), result.getString("message4"), false, result.getString("world"), result.getString("id"));
 				} while(result.next());
 			}
 		} catch ( SQLException e ) { e.printStackTrace(); }

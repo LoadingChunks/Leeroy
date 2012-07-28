@@ -3,6 +3,7 @@ package net.loadingchunks.plugins.Leeroy;
 import java.awt.Color;
 import java.io.IOException;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
@@ -11,7 +12,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+
+import net.loadingchunks.plugins.Leeroy.Types.*;
 
 public class LeeroyPlayerListener implements Listener {
 	
@@ -21,59 +28,94 @@ public class LeeroyPlayerListener implements Listener {
 	{
 		this.plugin = plugin;
 	}
-
-	@EventHandler(priority = EventPriority.LOW)
-	public void onPlayerJoin(PlayerJoinEvent event)
-	{
-		if(this.plugin.getServer().getWorld("homeworld_" + event.getPlayer().getName()) == null && !this.plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + event.getPlayer().getName()))
+	
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event)
+	{			
+		if(!(event.getPlayer().getWorld().getName().startsWith("homeworld_")) || event.getPlayer().getGameMode() == GameMode.CREATIVE)
 		{
-			Location loc = this.goToHomeWorld(event.getPlayer());
-			if(loc != null)
-				event.getPlayer().teleport(loc);
+			return;
+		}
+
+		Location pl = event.getPlayer().getLocation();
+
+		// High X
+		if(pl.getX() > this.plugin.getConfig().getDouble("home.border.x-max"))
+		{
+			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),(this.plugin.getConfig().getDouble("home.border.x-max") - 0.5), pl.getY(), pl.getZ(), pl.getYaw(), pl.getPitch()));
+		}
+
+		// Low X
+		if(pl.getX() < this.plugin.getConfig().getDouble("home.border.x-min"))
+		{
+			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),(this.plugin.getConfig().getDouble("home.border.x-min") + 0.5), pl.getY(), pl.getZ(), pl.getYaw(), pl.getPitch()));
+		}
+		
+		// High Z
+		if(pl.getZ() > this.plugin.getConfig().getDouble("home.border.z-max"))
+		{
+			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),pl.getX(), pl.getY(), (this.plugin.getConfig().getDouble("home.border.z-max") - 0.5), pl.getYaw(), pl.getPitch()));
+		}
+		
+		// Low Z
+		if(pl.getZ() < this.plugin.getConfig().getDouble("home.border.z-min"))
+		{
+			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),pl.getX(), pl.getY(), (this.plugin.getConfig().getDouble("home.border.z-min") + 0.5), pl.getYaw(), pl.getPitch()));
 		}
 	}
 	
-	public Location goToHomeWorld(Player p)
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		this.plugin.log.info("[LEEROY] Got home teleport, going to the user's home at homeworld_" + p.getName());
-
-		this.plugin.getServer().getWorld("homeworld_" + p.getName()).loadChunk(this.plugin.getServer().getWorld("homeworld_" + p.getName()).getChunkAt(-23, 118));
-		Location loc = new Location(this.plugin.getServer().getWorld("homeworld_" + p.getName()), 23, 70, 118);
-		return loc;
+		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !(LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName())))
+		{
+			Location nl = new Location(event.getPlayer().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
+			this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getPlayer().getWorld().getName(), event.getPlayer().getWorld().getName() + "_butler");
+		}
 	}
 	
-	public Location makeWorld(Player p)
+	@EventHandler
+	public void onPlayerChangeWorld(PlayerChangedWorldEvent event)
 	{
-		Runtime run = Runtime.getRuntime();
-		Process pr;
-		if(this.plugin.getServer().getWorld("homeworld_" + p.getName()) == null && !this.plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + p.getName()))
+		if(event.getFrom().getName().startsWith("homeworld_"))
 		{
-			this.plugin.log.info("[LEEROY] Player " + p.getName() + " has no home world, let's make them one!");
-			this.plugin.log.info("[LEEROY] Creating world file from template...");
-			try {
-				pr = run.exec("cp -r homeworld homeworld_" + p.getName());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
-			
-			try {
-				pr.waitFor();
-			} catch (InterruptedException e)
+			if(LeeroyUtils.hasNPC(this.plugin, event.getFrom().getName()) && this.plugin.NPCList.containsKey(event.getPlayer().getWorld().getName() + "_butler") && event.getFrom().getPlayers().isEmpty())
 			{
-				e.printStackTrace();
-			}
-			
-			this.plugin.log.info("[LEEROY] Adding to WM...");
-			if(!this.plugin.mvcore.getMVWorldManager().addWorld("homeworld_" + p.getName(), Environment.NORMAL, "foobar", "CleanroomGenerator:."))
-			{
-				Location loc = new Location(this.plugin.getServer().getWorlds().get(0), this.plugin.getServer().getWorlds().get(0).getSpawnLocation().getX(),this.plugin.getServer().getWorlds().get(0).getSpawnLocation().getY(),this.plugin.getServer().getWorlds().get(0).getSpawnLocation().getZ());
-				p.sendMessage(Color.red + "[ERROR] Something went wrong! Please alert an admin and provide Error Code: 404");
-				return loc;
+				((ButlerNPC)this.plugin.NPCList.get(event.getFrom().getName() + "_butler")).npc.removeFromWorld();
+				this.plugin.NPCList.remove(event.getFrom().getName() + "_butler");
 			}
 		}
 		
-		return null;
+		if(event.getPlayer().getWorld().getName().startsWith("homeworld_"))
+		{
+			if(!LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName()))
+			{
+				Location nl = new Location(event.getPlayer().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
+				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getPlayer().getWorld().getName(), event.getPlayer().getWorld().getName() + "_butler");
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerTeleport(PlayerTeleportEvent event)
+	{
+		if(event.getTo().getWorld().getName().startsWith("homeworld_"))
+		{
+			if(!LeeroyUtils.hasNPC(this.plugin, event.getTo().getWorld().getName()))
+			{
+				Location nl = new Location(event.getTo().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
+				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getTo().getWorld().getName(), event.getTo().getWorld().getName() + "_butler");
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event)
+	{
+		if(event.getPlayer().getWorld() != null && this.plugin.NPCList.containsKey(event.getPlayer().getWorld().getName() + "_butler") && event.getPlayer().getWorld().getPlayers().isEmpty())
+		{
+			((ButlerNPC)this.plugin.NPCList.get(event.getPlayer().getWorld().getName() + "_butler")).npc.removeFromWorld();
+			this.plugin.NPCList.remove(event.getPlayer().getWorld().getName() + "_butler");
+		}
 	}
 }

@@ -4,6 +4,7 @@ import net.loadingchunks.plugins.Leeroy.Leeroy;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -17,33 +18,37 @@ import com.topcat.npclib.entity.NPC;
 import com.topcat.npclib.nms.NpcEntityTargetEvent;
 import com.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
 
+/* When adding new NPC:
+ *  Add handling to LeeroyNPCHandler.java
+ *  Add handling of events in LeeroyNPCListener.java
+ */
+
 public class BasicNPC
 {
 	public NPCManager manager;
 	public String name;
 	public HumanNPC npc;
 	public Leeroy plugin;
-	public String message1;
-	public String message2;
-	public String message3;
-	public String message4;
-	
-	private final String type = "leeroy_npcbasic";
-	private final String hrtype = "basic";
+	public String message1 = "";
+	public String message2 = "";
+	public String message3 = "";
+	public String message4 = "";
+	public Location original;
 
-	public BasicNPC(Leeroy plugin, String name, Location l, String id, String msg1, String msg2, String msg3, String msg4, boolean isnew, String world)
+	public BasicNPC(Leeroy plugin, String name, Location l, String id, String msg1, String msg2, String msg3, String msg4, boolean isnew, String world, String hrtype, String type)
 	{
 		this.plugin = plugin;
+		this.original = l;
 		this.manager = new NPCManager(plugin);
 		this.name = name;
 		this.npc = (HumanNPC)manager.spawnHumanNPC(name, l);
-		FixedMetadataValue meta = new FixedMetadataValue(this.plugin, this.type);
+		FixedMetadataValue meta = new FixedMetadataValue(this.plugin, type);
 		FixedMetadataValue hash = new FixedMetadataValue(this.plugin, id);
 		this.npc.getBukkitEntity().setMetadata("leeroy_type", meta);
 		this.npc.getBukkitEntity().setMetadata("leeroy_id", hash);
 		
 		if(isnew)
-			this.plugin.sql.AddNPC(id, name, this.hrtype, l, world);
+			this.plugin.sql.AddNPC(id, name, hrtype, l, world);
 		
 		this.message1 = msg1;
 		this.message2 = msg2;
@@ -55,25 +60,7 @@ public class BasicNPC
 	
 	public void SetBroadcast(final String msg)
 	{
-		if(msg == null || msg.isEmpty())
-			return;
-
-		final HumanNPC tmp = this.npc;
-		this.plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(this.plugin, new Runnable() {
-			public void run() {
-				for(Entity e : tmp.getBukkitEntity().getNearbyEntities(10,5,10))
-				{
-					if(e instanceof Player)
-					{
-						String fmsg;
-						Player p = (Player)e;
-						fmsg = msg.replaceAll("<player>", p.getDisplayName());
-						fmsg = fmsg.replaceAll("<npc>", npc.getName());
-						p.sendMessage(fmsg);
-					}
-				}
-			}
-		}, 20L, 6000L);
+		// Doesn't do anything in basic.
 	}
 	
 	public void onTarget(Player player, NpcEntityTargetEvent event)
@@ -86,71 +73,65 @@ public class BasicNPC
 
 	public void onRightClick(Player player, NpcEntityTargetEvent event)
 	{
-		player.sendMessage("<" + this.name + "> Yes?"); 
+		// Doesn't do anything in basic.
 	}
 	
 	public void onBounce(Player player, EntityTargetEvent event)
 	{
-		player.sendMessage("<" + this.name + "> Hey, careful!");
+		// Doesn't do anything in basic.
 	}
 	
 	public void onNear(Player player)
 	{
-		this.npc.moveTo(this.lookAt(this.npc.getBukkitEntity().getLocation(), player.getLocation()));
-		return;
+		// Doesn't do anything in basic.
 	}
 	
-	public void onHit(Player assailant, EntityDamageByEntityEvent event)
+	public void onHit(Entity assailant, EntityDamageByEntityEvent event)
 	{
-		this.npc.actAsHurt();
-		assailant.sendMessage("<" + this.name + "> Hey, that hurts!");
+		if(event.getDamager() instanceof Player)
+			this.onPlayer((Player)event.getDamager(), event);
+		else if(event.getDamager() instanceof Monster)
+			this.onMonster((Monster)event.getDamager(), event);
+	}
+
+	public void onPlayer(Player player, EntityDamageByEntityEvent event)
+	{
+		// Doesn't do anything in basic.
 	}
 	
+	public void onMonster(Monster monster, EntityDamageByEntityEvent event)
+	{
+		// Doesn't do anything in basic.
+	}
 	
-	public static boolean IsNearby(Player p, Location l)
+	public void broadcast(String msg)
+	{
+		if(msg == null || msg.isEmpty())
+			return;
+
+		HumanNPC tmp = this.npc;
+
+		for(Entity e : tmp.getBukkitEntity().getNearbyEntities(10,5,10))
+		{
+			if(e instanceof Player)
+			{
+				String fmsg;
+				Player p = (Player)e;
+				fmsg = msg.replaceAll("<player>", p.getDisplayName());
+				fmsg = fmsg.replaceAll("<npc>", npc.getName());
+				p.sendMessage(fmsg);
+			}
+		}
+	}
+
+	public boolean IsNearby(Location e, Location l, Integer r, Integer h)
 	{	
-		if( ((l.getX() + 10) > p.getLocation().getX() && (l.getX() - 10) < p.getLocation().getX()) &&
-				((l.getY() + 5) > p.getLocation().getY() && (l.getY() - 5) < p.getLocation().getY()) &&
-				((l.getZ() + 10) > p.getLocation().getY() && (l.getY() - 10) < p.getLocation().getY()))
+		if( ((l.getX() + r) > e.getX() && (l.getX() - r) < e.getX()) &&
+				((l.getY() + h) > e.getY() && (l.getY() - h) < e.getY()) &&
+				((l.getZ() + r) > e.getY() && (l.getY() - r) < e.getY()))
 		{
 			return true;
 		} else
 			return false;
 	}
-	
-	// Credit to bergerkiller for this: http://forums.bukkit.org/threads/lookat-and-move-functions.26768/
-    public static Location lookAt(Location loc, Location lookat) {
-        //Clone the loc to prevent applied changes to the input loc
-        loc = loc.clone();
-
-        // Values of change in distance (make it relative)
-        double dx = lookat.getX() - loc.getX();
-        double dy = lookat.getY() - loc.getY();
-        double dz = lookat.getZ() - loc.getZ();
-
-        // Set yaw
-        if (dx != 0) {
-            // Set yaw start value based on dx
-            if (dx < 0) {
-                loc.setYaw((float) (1.5 * Math.PI));
-            } else {
-                loc.setYaw((float) (0.5 * Math.PI));
-            }
-            loc.setYaw((float) loc.getYaw() - (float) Math.atan(dz / dx));
-        } else if (dz < 0) {
-            loc.setYaw((float) Math.PI);
-        }
-
-        // Get the distance from dx/dz
-        double dxz = Math.sqrt(Math.pow(dx, 2) + Math.pow(dz, 2));
-
-        // Set pitch
-        loc.setPitch((float) -Math.atan(dy / dxz));
-
-        // Set values, convert to degrees (invert the yaw since Bukkit uses a different yaw dimension format)
-        loc.setYaw(-loc.getYaw() * 180f / (float) Math.PI);
-        loc.setPitch(loc.getPitch() * 180f / (float) Math.PI);
-
-        return loc;
-    }
 }

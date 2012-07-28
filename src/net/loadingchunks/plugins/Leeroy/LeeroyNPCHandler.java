@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import net.loadingchunks.plugins.Leeroy.Types.BasicNPC;
+import net.loadingchunks.plugins.Leeroy.Types.*;
 
 import org.bukkit.Location;
 
@@ -17,13 +17,12 @@ public class LeeroyNPCHandler {
 		this.plugin = plugin;
 	}
 	
-	public void spawn(String type, String name, Location l, String msg1, String msg2, String msg3, String msg4, boolean isnew, String world)
+	public void spawn(String type, String name, Location l, String msg1, String msg2, String msg3, String msg4, boolean isnew, String world, String id)
 	{
 		byte[] bytesOfMessage = null;
 		try {
-			bytesOfMessage = l.toString().getBytes("UTF-8");
+			bytesOfMessage = (l + Long.toString(System.currentTimeMillis())).toString().getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -33,16 +32,36 @@ public class LeeroyNPCHandler {
 
 			md = MessageDigest.getInstance("MD5");
 			byte[] td = md.digest(bytesOfMessage);
+			
+			if(id == null)
+				id = world + "-" + type + "_" + td.toString();
 
+			this.plugin.log.info("[LEEROY] Spawning " + id);
 			if(type.equalsIgnoreCase("basic") || type.isEmpty())
 			{
-				this.plugin.NPCList.put(type + "_" + td.toString(), new BasicNPC(this.plugin, name, l, type + "_" + td.toString(), msg1, msg2, msg3, msg4, isnew, world));
+				this.plugin.NPCList.put(id, new BasicNPC(this.plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world, "basic", "leeroy_npcbasic"));
+			} else if (type.equalsIgnoreCase("port"))
+			{
+				this.plugin.NPCList.put(id, new PortNPC(this.plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world));
+			} else if (type.equalsIgnoreCase("butler"))
+			{
+				this.plugin.NPCList.put(id, new ButlerNPC(this.plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world));
 			}
 
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void remove(String id)
+	{
+		((BasicNPC)this.plugin.NPCList.get(id)).npc.removeFromWorld();
+		try {
+			this.plugin.sql.RemoveNPC(id);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		this.plugin.NPCList.remove(id);
+	}
 }

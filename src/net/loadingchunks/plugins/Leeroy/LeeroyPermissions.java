@@ -8,5 +8,10 @@ public class LeeroyPermissions {
 	{
 		return p.isOp();
 	}
+	
+	public static boolean canKill(Player p)
+	{
+		return p.isOp();
+	}
 
 }
