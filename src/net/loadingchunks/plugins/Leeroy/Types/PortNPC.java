@@ -140,6 +140,10 @@ public class PortNPC extends BasicNPC
 			this.plugin.log.info("[LEEROY] Adding to WM...");
 			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mv import homeworld_" + p.getName() + " normal");
 			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set monsters false homeworld_" + p.getName());
+			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set pvp false homeworld_" + p.getName());
+			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set hidden true homeworld_" + p.getName());
+			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set animals false homeworld_" + p.getName());
+			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set hunger false homeworld_" + p.getName());
 			if(!this.plugin.getMVCore().getMVWorldManager().loadWorld("homeworld_" + p.getName()))
 			{
 				p.sendMessage("<" + this.name + "> Something went wrong! Please alert an admin and provide Error Code: 404");
