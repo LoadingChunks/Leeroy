@@ -13,8 +13,6 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 
-import com.topcat.npclib.entity.HumanNPC;
-
 public class LeeroyCommands implements CommandExecutor
 {
 	public Leeroy plugin;

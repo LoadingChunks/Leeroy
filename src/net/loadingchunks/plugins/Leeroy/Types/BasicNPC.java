@@ -7,15 +7,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-
 import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.HumanNPC;
-import com.topcat.npclib.entity.NPC;
 import com.topcat.npclib.nms.NpcEntityTargetEvent;
 import com.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
 

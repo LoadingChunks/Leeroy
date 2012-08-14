@@ -1,30 +1,14 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
-import java.awt.Color;
-import java.io.IOException;
-
 import net.loadingchunks.plugins.Leeroy.Leeroy;
-import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
-
 import org.bukkit.Location;
-import org.bukkit.World.Environment;
-import org.bukkit.WorldType;
-import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.command.CraftConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
-
-import com.topcat.npclib.NPCManager;
 import com.topcat.npclib.entity.HumanNPC;
-import com.topcat.npclib.entity.NPC;
 import com.topcat.npclib.nms.NpcEntityTargetEvent;
-import com.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
 
 /* When adding new NPC:
  *  
