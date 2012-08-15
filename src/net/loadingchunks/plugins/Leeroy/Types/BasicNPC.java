@@ -82,7 +82,8 @@ public class BasicNPC
 	
 	public void onNear(Player player)
 	{
-		// Doesn't do anything in basic.
+		this.npc.lookAtPoint(player.getEyeLocation());
+		return;
 	}
 	
 	public void onHit(Entity assailant, EntityDamageByEntityEvent event)
