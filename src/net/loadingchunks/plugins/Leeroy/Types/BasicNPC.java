@@ -4,9 +4,12 @@ import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.minecraft.server.MathHelper;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -92,6 +95,20 @@ public class BasicNPC
 			this.onPlayer((Player)event.getDamager(), event);
 		else if(event.getDamager() instanceof Monster)
 			this.onMonster((Monster)event.getDamager(), event);
+		else if(event.getDamager() instanceof Block)
+			this.onBlock((Block)event.getDamager(), event);
+		else if(event.getDamager() instanceof Projectile)
+			this.onProjectile((Projectile)event.getDamager(), event);
+	}
+	
+	public void onBlock(Block b, EntityDamageByEntityEvent event)
+	{
+		// Doesn't do anything in basic.
+	}
+	
+	public void onProjectile(Projectile p, EntityDamageByEntityEvent event)
+	{
+		// Doesn't do anything in basic.
 	}
 
 	public void onPlayer(Player player, EntityDamageByEntityEvent event)

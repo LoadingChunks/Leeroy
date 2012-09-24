@@ -1,6 +1,7 @@
 name: Leeroy
 main: net.loadingchunks.plugins.Leeroy.Leeroy
 version: 0.8
+depend: [Multiverse-Core]
 commands:
     hc:
         description: Control the HouseCarl system.
