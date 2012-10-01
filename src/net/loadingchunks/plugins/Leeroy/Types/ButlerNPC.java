@@ -39,8 +39,7 @@ public class ButlerNPC extends BasicNPC
 						Player p = (Player)e;
 						
 						p.sendMessage("<" + npc.getName() + "> Welcome to your homeworld, " + p.getDisplayName() + "!");
-						p.sendMessage("<" + npc.getName() + "> If you would like to go to the lobby area from where you can");
-						p.sendMessage("teleport to places across the mainland, right click me!");
+						p.sendMessage("<" + npc.getName() + "> Right click me to return to the main land.");
 					}
 				}
 			}
@@ -65,7 +64,7 @@ public class ButlerNPC extends BasicNPC
 	@Override
 	public void onRightClick(final Player player, NpcEntityTargetEvent event)
 	{
-		player.sendMessage("<" + this.name + "> You'll be transported to the lobby in 5 seconds");
+		player.sendMessage("<" + this.name + "> You'll be transported to the main land in 5 seconds");
 		player.sendMessage("<" + this.name + "> Thank you for using the Chunky Transport System!");
 
 		this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
