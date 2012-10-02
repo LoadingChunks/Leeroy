@@ -1,5 +1,6 @@
 package net.loadingchunks.plugins.Leeroy;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -91,6 +92,12 @@ public class Leeroy extends JavaPlugin {
 	}
 	
 	public void onDisable() {
+		try {
+			this.sql.con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log.info("[LEEROY] JEEEEENKIIIINS");
 	}
 	
