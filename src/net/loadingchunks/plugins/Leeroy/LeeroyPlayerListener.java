@@ -2,6 +2,7 @@ package net.loadingchunks.plugins.Leeroy;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -59,11 +60,23 @@ public class LeeroyPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
+		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !event.getPlayer().getWorld().getName().equalsIgnoreCase("homeworld_" + event.getPlayer().getName()))
+		{
+			Player p = event.getPlayer();
+			if(plugin.mvcore.getMVWorldManager().isMVWorld("homeworld_" + p.getName()) && plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + p.getName()))
+				p.teleport(this.plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
+			else
+			{
+				plugin.mvcore.getLogger().warning("[LEEROY] Something is odd! " + p.getName() + "'s homeworld isn't loading!");
+				p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("mainworld").getSpawnLocation());
+			}
+		}
+
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !(LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName())))
 		{
 			Location nl = new Location(event.getPlayer().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
 			this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getPlayer().getWorld().getName(), event.getPlayer().getWorld().getName() + "_butler");
-		}
+		}	
 	}
 	
 	@EventHandler

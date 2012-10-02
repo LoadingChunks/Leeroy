@@ -4,10 +4,8 @@ import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet18ArmAnimation;
 import net.minecraft.server.WorldServer;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
