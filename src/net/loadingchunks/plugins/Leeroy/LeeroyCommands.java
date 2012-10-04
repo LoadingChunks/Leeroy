@@ -175,6 +175,7 @@ public class LeeroyCommands implements CommandExecutor
 			if(!(sender instanceof Player))
 			{
 				sender.sendMessage("You can only do this in-game!");
+				return true;
 			}
 			
 			Player p = (Player)sender;
@@ -182,16 +183,19 @@ public class LeeroyCommands implements CommandExecutor
 			if(!(p.getWorld().getName().equalsIgnoreCase("homeworld_" + p.getName())))
 			{
 				p.sendMessage("This is not your home world");
+				return true;
 			}
 			
 			if(!p.hasPermission("leeroy.invite"))
 			{
 				p.sendMessage("You do not have permission to do that!");
+				return true;
 			}
 			
-			if(args.length != 1)
+			if(args.length < 1)
 			{
 				p.sendMessage("You need to specify a player to invite");
+				return true;
 			}
 			
 			if(plugin.getServer().getPlayer(args[0]) != null)
@@ -199,7 +203,10 @@ public class LeeroyCommands implements CommandExecutor
 				Player to = plugin.getServer().getPlayer(args[0]);
 				to.sendMessage(Color.CYAN + p.getDisplayName() + " has invited you to their home world. Type /accept to go there!");
 				this.plugin.inviteList.put(to.getName(), "homeworld_" + p.getName());
+				return true;
 			}
+			
+			return false;
 		}
 		
 		if(cmd.getName().equalsIgnoreCase("accept"))
