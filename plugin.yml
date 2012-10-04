@@ -15,5 +15,11 @@ commands:
             /leeroy spawn <type> <name> - [OP ONLY] Creates an NPC with specified name and type.
             /leeroy kill <name> [radius] - [OP ONLY] Kills all NPCs with specified name (* for all) in the specified radius (optional, default is 5 blocks).
             /leeroy angle - Provides you with your yaw and pitch.
-            /invite - Invite a player to your home world.
-            /accept - Accept an invitation to a player's home world.
+    invite:
+        description: Invites a player to your home world.
+        usage: |
+            /invite <player> - Invites a player to your home world.
+    accept:
+        description: Accept a player's invitation to their home world.
+        usage: |
+            /accept - Accept a player's invitation to their home world.
