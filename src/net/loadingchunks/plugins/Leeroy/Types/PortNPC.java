@@ -132,6 +132,7 @@ public class PortNPC extends BasicNPC
 			this.plugin.getServer().dispatchCommand((CommandSender) ( this.plugin.getServer().getConsoleSender()), "mvm set hidden true homeworld_" + p.getName());
 			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set animals false homeworld_" + p.getName());
 			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set hunger false homeworld_" + p.getName());
+			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set autoload false homeworld_" + p.getName());
 			if(!this.plugin.getMVCore().getMVWorldManager().loadWorld("homeworld_" + p.getName()))
 			{
 				p.sendMessage("<" + this.name + "> Something went wrong! Please alert an admin and provide Error Code: 404");

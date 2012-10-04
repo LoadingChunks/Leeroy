@@ -36,7 +36,7 @@ public class LeeroyPlayerListener implements Listener {
 		// Don't let players fall through the void.
 		if(pl.getY() < -10)
 		{
-			event.getPlayer().setVelocity(new Vector());
+			event.getPlayer().setFallDistance(0);
 			event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
 		}
 	}
