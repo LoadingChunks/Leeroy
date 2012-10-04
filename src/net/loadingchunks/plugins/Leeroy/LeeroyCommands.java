@@ -207,7 +207,7 @@ public class LeeroyCommands implements CommandExecutor
 			if(!(sender instanceof Player))
 			{
 				sender.sendMessage("You can only do this in-game!");
-				return false;
+				return true;
 			}
 			
 			Player p = (Player)sender;
@@ -215,22 +215,24 @@ public class LeeroyCommands implements CommandExecutor
 			if(!p.hasPermission("leeroy.accept"))
 			{
 				p.sendMessage("You do not have permission to do that!");
-				return false;
+				return true;
 			}
 			
 			if(!plugin.inviteList.containsKey(p.getName()))
 			{
 				sender.sendMessage("Nobody has invited you to their home! :(");
-				return false;
+				return true;
 			}
 			
 			if(plugin.mvcore.getMVWorldManager().getUnloadedWorlds().contains(plugin.inviteList.get(p.getName())))
 			{
 				sender.sendMessage("Nobody is in that world any more.");
-				return false;
+				return true;
 			}
 
 			p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.inviteList.get(p.getName())).getSpawnLocation());
+			
+			return true;
 			
 		}
 		return false;
