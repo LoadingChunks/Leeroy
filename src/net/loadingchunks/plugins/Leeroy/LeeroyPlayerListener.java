@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.util.Vector;
 
 import net.loadingchunks.plugins.Leeroy.Types.*;
 
@@ -35,6 +36,7 @@ public class LeeroyPlayerListener implements Listener {
 		// Don't let players fall through the void.
 		if(pl.getY() < -10)
 		{
+			event.getPlayer().setVelocity(new Vector());
 			event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
 		}
 	}
