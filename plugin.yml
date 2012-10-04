@@ -1,6 +1,6 @@
 name: Leeroy
 main: net.loadingchunks.plugins.Leeroy.Leeroy
-version: 0.8
+version: 0.9
 depend: [Multiverse-Core]
 commands:
     hc:
@@ -15,3 +15,5 @@ commands:
             /leeroy spawn <type> <name> - [OP ONLY] Creates an NPC with specified name and type.
             /leeroy kill <name> [radius] - [OP ONLY] Kills all NPCs with specified name (* for all) in the specified radius (optional, default is 5 blocks).
             /leeroy angle - Provides you with your yaw and pitch.
+            /invite - Invite a player to your home world.
+            /accept - Accept an invitation to a player's home world.

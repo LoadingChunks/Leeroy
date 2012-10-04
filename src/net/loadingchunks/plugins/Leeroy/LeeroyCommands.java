@@ -12,6 +12,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
+import org.fusesource.jansi.Ansi.Color;
 
 public class LeeroyCommands implements CommandExecutor
 {
@@ -169,6 +170,73 @@ public class LeeroyCommands implements CommandExecutor
 			}
 		}
 		
+		if(cmd.getName().equalsIgnoreCase("invite"))
+		{
+			if(!(sender instanceof Player))
+			{
+				sender.sendMessage("You can only do this in-game!");
+				return false;
+			}
+			
+			Player p = (Player)sender;
+			
+			if(!(p.getWorld().getName().equalsIgnoreCase("homeworld_" + p.getName())))
+			{
+				p.sendMessage("This is not your home world");
+				return false;
+			}
+			
+			if(!p.hasPermission("leeroy.invite"))
+			{
+				p.sendMessage("You do not have permission to do that!");
+				return false;
+			}
+			
+			if(args.length != 1)
+			{
+				p.sendMessage("You need to specify a player to invite");
+				return false;
+			}
+			
+			if(plugin.getServer().getPlayer(args[0]) != null)
+			{
+				Player to = plugin.getServer().getPlayer(args[0]);
+				to.sendMessage(Color.CYAN + p.getDisplayName() + " has invited you to their home world. Type /accept to go there!");
+				this.plugin.inviteList.put(to.getName(), "homeworld_" + p.getName());
+			}
+		}
+		
+		if(cmd.getName().equalsIgnoreCase("accept"))
+		{
+			if(!(sender instanceof Player))
+			{
+				sender.sendMessage("You can only do this in-game!");
+				return false;
+			}
+			
+			Player p = (Player)sender;
+			
+			if(!p.hasPermission("leeroy.accept"))
+			{
+				p.sendMessage("You do not have permission to do that!");
+				return false;
+			}
+			
+			if(!plugin.inviteList.containsKey(p.getName()))
+			{
+				sender.sendMessage("Nobody has invited you to their home! :(");
+				return false;
+			}
+			
+			if(plugin.mvcore.getMVWorldManager().getUnloadedWorlds().contains(plugin.inviteList.get(p.getName())))
+			{
+				sender.sendMessage("Nobody is in that world any more.");
+				return false;
+			}
+
+			p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.inviteList.get(p.getName())).getSpawnLocation());
+			
+		}
 		return false;
 	}
 	

@@ -22,6 +22,7 @@ public class Leeroy extends JavaPlugin {
 	public LeeroySQL sql;
 	private LeeroyCommands cmdExecutor;
 	public Economy eco;
+	public HashMap<String, String> inviteList = new HashMap<String, String>();
 
 	public void onEnable() {
 		this.getServer().getPluginManager().registerEvents(new LeeroyPlayerListener(this), this);
@@ -95,7 +96,6 @@ public class Leeroy extends JavaPlugin {
 		try {
 			this.sql.con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		log.info("[LEEROY] JEEEEENKIIIINS");

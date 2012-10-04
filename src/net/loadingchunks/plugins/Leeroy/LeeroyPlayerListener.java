@@ -32,44 +32,27 @@ public class LeeroyPlayerListener implements Listener {
 
 		Location pl = event.getPlayer().getLocation();
 
-		// High X
-		if(pl.getX() > this.plugin.getConfig().getDouble("home.border.x-max"))
+		// Don't let players fall through the void.
+		if(pl.getY() < -10)
 		{
-			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),(this.plugin.getConfig().getDouble("home.border.x-max") - 0.5), pl.getY(), pl.getZ(), pl.getYaw(), pl.getPitch()));
-		}
-
-		// Low X
-		if(pl.getX() < this.plugin.getConfig().getDouble("home.border.x-min"))
-		{
-			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),(this.plugin.getConfig().getDouble("home.border.x-min") + 0.5), pl.getY(), pl.getZ(), pl.getYaw(), pl.getPitch()));
-		}
-		
-		// High Z
-		if(pl.getZ() > this.plugin.getConfig().getDouble("home.border.z-max"))
-		{
-			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),pl.getX(), pl.getY(), (this.plugin.getConfig().getDouble("home.border.z-max") - 0.5), pl.getYaw(), pl.getPitch()));
-		}
-		
-		// Low Z
-		if(pl.getZ() < this.plugin.getConfig().getDouble("home.border.z-min"))
-		{
-			event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),pl.getX(), pl.getY(), (this.plugin.getConfig().getDouble("home.border.z-min") + 0.5), pl.getYaw(), pl.getPitch()));
+			event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
 		}
 	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !event.getPlayer().getWorld().getName().equalsIgnoreCase("homeworld_" + event.getPlayer().getName()))
+		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && event.getPlayer().getWorld().getName().equalsIgnoreCase("homeworld_" + event.getPlayer().getName()))
 		{
-			Player p = event.getPlayer();
-			if(plugin.mvcore.getMVWorldManager().isMVWorld("homeworld_" + p.getName()) && plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + p.getName()))
-				p.teleport(this.plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
-			else
-			{
-				plugin.mvcore.getLogger().warning("[LEEROY] Something is odd! " + p.getName() + "'s homeworld isn't loading!");
-				p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("mainworld").getSpawnLocation());
-			}
+			final Player p = event.getPlayer();
+			this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
+				public void run() {
+					if(plugin.mvcore.getMVWorldManager().isMVWorld("homeworld_" + p.getName()) && plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + p.getName()))
+						p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
+					else
+						plugin.mvcore.getLogger().warning("[LEEROY] Something is odd! " + p.getName() + "'s homeworld isn't loading!");
+				}
+			},3L);
 		}
 
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !(LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName())))
@@ -99,7 +82,6 @@ public class LeeroyPlayerListener implements Listener {
 				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getPlayer().getWorld().getName(), event.getPlayer().getWorld().getName() + "_butler");
 			}
 		}
-			
 	}
 	
 	@EventHandler
