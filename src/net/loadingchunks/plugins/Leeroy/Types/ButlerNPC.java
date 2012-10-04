@@ -38,12 +38,17 @@ public class ButlerNPC extends BasicNPC
 					{
 						Player p = (Player)e;
 						
-						p.sendMessage("<" + npc.getName() + "> Welcome to your homeworld, " + p.getDisplayName() + "!");
+						if(p.getWorld().getName().equalsIgnoreCase("homeworld_" + p.getName()))
+						{
+							p.sendMessage("<" + npc.getName() + "> Welcome to your homeworld, " + p.getDisplayName() + "!");	
+						} else {
+							p.sendMessage("<" + npc.getName() + "> Welcome to " + p.getWorld().getName().replace("homeworld_", "") + "'s homeworld, " + p.getDisplayName() + "!");
+						}
 						p.sendMessage("<" + npc.getName() + "> Right click me to return to the main land.");
 					}
 				}
 			}
-		}, 40L, 10000L);
+		}, 40L, 40000L);
 	}
 
 	// Player bounces (doesn't seem to work)

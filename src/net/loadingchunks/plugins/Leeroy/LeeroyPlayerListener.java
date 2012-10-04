@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -107,5 +108,12 @@ public class LeeroyPlayerListener implements Listener {
 			((ButlerNPC)this.plugin.NPCList.get(event.getPlayer().getWorld().getName() + "_butler")).npc.removeFromWorld();
 			this.plugin.NPCList.remove(event.getPlayer().getWorld().getName() + "_butler");
 		}
+	}
+	
+	// Stop players doing stuff
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event)
+	{
+		
 	}
 }
