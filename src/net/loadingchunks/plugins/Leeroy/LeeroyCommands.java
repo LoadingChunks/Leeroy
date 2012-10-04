@@ -175,7 +175,6 @@ public class LeeroyCommands implements CommandExecutor
 			if(!(sender instanceof Player))
 			{
 				sender.sendMessage("You can only do this in-game!");
-				return false;
 			}
 			
 			Player p = (Player)sender;
@@ -183,19 +182,16 @@ public class LeeroyCommands implements CommandExecutor
 			if(!(p.getWorld().getName().equalsIgnoreCase("homeworld_" + p.getName())))
 			{
 				p.sendMessage("This is not your home world");
-				return false;
 			}
 			
 			if(!p.hasPermission("leeroy.invite"))
 			{
 				p.sendMessage("You do not have permission to do that!");
-				return false;
 			}
 			
 			if(args.length != 1)
 			{
 				p.sendMessage("You need to specify a player to invite");
-				return false;
 			}
 			
 			if(plugin.getServer().getPlayer(args[0]) != null)
