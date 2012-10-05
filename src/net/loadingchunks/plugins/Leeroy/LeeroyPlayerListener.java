@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -41,6 +42,13 @@ public class LeeroyPlayerListener implements Listener {
 			event.getPlayer().setFallDistance(0);
 			event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
 		}
+	}
+	
+	@EventHandler
+	public void onPlayerLogin(PlayerLoginEvent event)
+	{
+		plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + event.getPlayer().getName());
+		plugin.getLogger().info("Player '" + event.getPlayer().getName() + "' logging into world: " + event.getPlayer().getWorld().getName());
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
