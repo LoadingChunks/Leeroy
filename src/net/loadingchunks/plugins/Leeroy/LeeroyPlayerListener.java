@@ -48,12 +48,15 @@ public class LeeroyPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event)
 	{
-		plugin.mvcore.getMVWorldManager().loadWorld(event.getPlayer().getWorld().getName());
+		plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + event.getPlayer().getName());
 		plugin.getLogger().info("Player '" + event.getPlayer().getName() + "' logging into world: " + event.getPlayer().getWorld().getName());
+		
+		plugin.getLogger().info("Player Location: " + event.getPlayer().getLocation().getX() + "," + event.getPlayer().getLocation().getX() + "," + event.getPlayer().getLocation().getX());
 	}
 
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
+		
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !(LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName())))
 		{
 			Location nl = new Location(event.getPlayer().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
