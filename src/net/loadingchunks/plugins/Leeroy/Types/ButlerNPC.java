@@ -74,6 +74,9 @@ public class ButlerNPC extends BasicNPC
 
 		this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
 			public void run() {
+				if(player == null || !player.isOnline())
+					return;
+				
 				player.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.getConfig().getString("general.lobby")).getSpawnLocation());
 			}
 		},100L);

@@ -27,7 +27,7 @@ public class LeeroyPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{			
-		if(!(event.getPlayer().getWorld().getName().startsWith("homeworld_")) || event.getPlayer().getGameMode() == GameMode.CREATIVE)
+		if(!(event.getPlayer().getWorld().getName().startsWith("homeworld_")))
 		{
 			return;
 		}
@@ -48,9 +48,12 @@ public class LeeroyPlayerListener implements Listener {
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && event.getPlayer().getWorld().getName().equalsIgnoreCase("homeworld_" + event.getPlayer().getName()))
 		{
 			final Player p = event.getPlayer();
+			System.out.println("Caught player going to homeworld event! (" + event.getPlayer().getName() + " and " + event.getPlayer().getWorld().getName() + ")");
 			this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
 				public void run() {
-					p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("mainworld").getSpawnLocation());
+					System.out.println("Attempting teleport.");
+					if(p != null && p.isOnline())
+						p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("mainworld").getSpawnLocation());
 				}
 			},3L);
 		}
