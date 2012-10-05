@@ -43,13 +43,13 @@ public class LeeroyPlayerListener implements Listener {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
+		plugin.getLogger().info("Player '" + event.getPlayer().getName() + "' logging into world: " + event.getPlayer().getWorld().getName());
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && event.getPlayer().getWorld().getName().equalsIgnoreCase("homeworld_" + event.getPlayer().getName()))
 		{
 			final Player p = event.getPlayer();
-			System.out.println("Caught player going to homeworld event! (" + event.getPlayer().getName() + " and " + event.getPlayer().getWorld().getName() + ")");
 			this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
 				public void run() {
 					System.out.println("Attempting teleport.");
