@@ -1,5 +1,7 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
+import java.util.List;
+
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
 
@@ -34,7 +36,8 @@ public class PortNPC extends BasicNPC
 		final HumanNPC tmp = this.npc;
 		this.plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(this.plugin, new Runnable() {
 			public void run() {
-				for(Entity e : tmp.getBukkitEntity().getNearbyEntities(10,5,10))
+				List<Entity> entities = tmp.getBukkitEntity().getNearbyEntities(10,5,10);
+				for(Entity e : entities)
 				{
 					if(e instanceof Player)
 					{

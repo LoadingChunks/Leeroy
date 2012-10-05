@@ -1,5 +1,7 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
+import java.util.List;
+
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -32,7 +34,8 @@ public class ButlerNPC extends BasicNPC
 		final HumanNPC tmp = this.npc;
 		this.plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(this.plugin, new Runnable() {
 			public void run() {
-				for(Entity e : tmp.getBukkitEntity().getNearbyEntities(50,50,50))
+				List<Entity> entities = tmp.getBukkitEntity().getNearbyEntities(50,50,50);
+				for(Entity e : entities)
 				{
 					if(e instanceof Player)
 					{

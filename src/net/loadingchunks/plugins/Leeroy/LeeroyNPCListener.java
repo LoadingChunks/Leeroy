@@ -73,9 +73,10 @@ public class LeeroyNPCListener implements Listener
 		Integer r = 5;
 		
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_"))
-			r = 30;
+			r = 50;
 
-		for(Entity e : event.getPlayer().getNearbyEntities(r, r, r))
+		List<Entity> entities = event.getPlayer().getNearbyEntities(r, r, r);
+		for(Entity e : entities)
 		{
 			if(e instanceof HumanEntity)
 			{

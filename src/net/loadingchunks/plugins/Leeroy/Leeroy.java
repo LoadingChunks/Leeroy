@@ -2,6 +2,7 @@ package net.loadingchunks.plugins.Leeroy;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
@@ -67,8 +68,12 @@ public class Leeroy extends JavaPlugin {
 		this.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
 				plugin.log.info("[LEEROY] Running checks on homeworlds.");
-				for(World w : plugin.getServer().getWorlds())
+				List<World> worlds = plugin.getServer().getWorlds();
+				for(World w : worlds)
 				{
+					if(w == null)
+						continue;
+
 					if(w.getPlayers().isEmpty() && w.getName().startsWith("homeworld_"))
 					{
 						plugin.log.info("[LEEROY] Checking " + w.getName());

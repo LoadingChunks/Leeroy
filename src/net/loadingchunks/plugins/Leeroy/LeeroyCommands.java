@@ -2,6 +2,7 @@ package net.loadingchunks.plugins.Leeroy;
 
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import net.loadingchunks.plugins.Leeroy.Types.BasicNPC;
 
@@ -58,7 +59,9 @@ public class LeeroyCommands implements CommandExecutor
 				this.plugin.log.info("[LEEROY] Init Handler.");
 				LeeroyNPCHandler npc = new LeeroyNPCHandler(this.plugin);
 				
-				for(Entry<String, Object> n : this.plugin.NPCList.entrySet())
+				Set<Entry<String, Object>> entries = this.plugin.NPCList.entrySet();
+				
+				for(Entry<String, Object> n : entries)
 				{
 					BasicNPC np = (BasicNPC)n.getValue();
 
@@ -103,8 +106,9 @@ public class LeeroyCommands implements CommandExecutor
 				}
 				
 				Player p = (Player)sender;
+				List<Entity> entities = p.getNearbyEntities(radius, radius, radius);
 				
-				for(Entity e : p.getNearbyEntities(radius, radius, radius))
+				for(Entity e : entities)
 				{
 					if(e instanceof HumanEntity)
 					{
@@ -150,8 +154,9 @@ public class LeeroyCommands implements CommandExecutor
 				}
 				
 				Player p = (Player)sender;
+				List<Entity> entities = p.getNearbyEntities(radius, radius, radius);
 				
-				for(Entity e : p.getNearbyEntities(radius, radius, radius))
+				for(Entity e : entities)
 				{
 					if(e instanceof HumanEntity)
 					{

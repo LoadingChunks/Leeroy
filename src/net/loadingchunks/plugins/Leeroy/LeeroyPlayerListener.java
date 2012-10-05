@@ -109,11 +109,4 @@ public class LeeroyPlayerListener implements Listener {
 			this.plugin.NPCList.remove(event.getPlayer().getWorld().getName() + "_butler");
 		}
 	}
-	
-	// Stop players doing stuff
-	@EventHandler
-	public void onBlockBreak(BlockBreakEvent event)
-	{
-		
-	}
 }
