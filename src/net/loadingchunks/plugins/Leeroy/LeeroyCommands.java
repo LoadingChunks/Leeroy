@@ -246,7 +246,7 @@ public class LeeroyCommands implements CommandExecutor
 			}
 			
 			p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.inviteList.get(p.getName())).getSpawnLocation());
-			plugin.getServer().getPlayer(plugin.inviteList.get(p.getName())).sendMessage(ChatColor.AQUA + p.getDisplayName() + " has accepted your invitation.");
+			plugin.getServer().getPlayer(plugin.inviteList.get(p.getName()).replace("homeworld_", "")).sendMessage(ChatColor.AQUA + p.getDisplayName() + " has accepted your invitation.");
 			
 			return true;
 			
