@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import net.loadingchunks.plugins.Leeroy.Types.BasicNPC;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -201,9 +202,9 @@ public class LeeroyCommands implements CommandExecutor
 			if(plugin.getServer().getPlayer(args[0]) != null)
 			{
 				Player to = plugin.getServer().getPlayer(args[0]);
-				to.sendMessage(Color.CYAN + p.getDisplayName() + " has invited you to their home world. Type /accept to go there!");
+				to.sendMessage(ChatColor.AQUA + p.getDisplayName() + " has invited you to their home world. Type /accept to go there!");
 				this.plugin.inviteList.put(to.getName(), "homeworld_" + p.getName());
-				p.sendMessage(Color.CYAN + "Invite sent to " + to.getName());
+				p.sendMessage(ChatColor.AQUA + "Invite sent to " + to.getName());
 				return true;
 			}
 			
@@ -238,14 +239,14 @@ public class LeeroyCommands implements CommandExecutor
 				return true;
 			}
 
-			if(plugin.getServer().getPlayer(plugin.inviteList.get(p.getName())) == null)
+			if(plugin.getServer().getPlayer(plugin.inviteList.get(p.getName()).replace("homeworld_", "")) == null)
 			{
 				sender.sendMessage("Player is not online.");
 				return true;
 			}
 			
 			p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.inviteList.get(p.getName())).getSpawnLocation());
-			plugin.getServer().getPlayer(plugin.inviteList.get(p.getName())).sendMessage(Color.CYAN + p.getDisplayName() + " has accepted your invitation.");
+			plugin.getServer().getPlayer(plugin.inviteList.get(p.getName())).sendMessage(ChatColor.AQUA + p.getDisplayName() + " has accepted your invitation.");
 			
 			return true;
 			
