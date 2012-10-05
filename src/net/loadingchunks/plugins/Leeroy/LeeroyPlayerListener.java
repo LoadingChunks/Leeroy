@@ -2,6 +2,7 @@ package net.loadingchunks.plugins.Leeroy;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,26 +48,13 @@ public class LeeroyPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event)
 	{
-		plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + event.getPlayer().getName());
+		plugin.mvcore.getMVWorldManager().loadWorld(event.getPlayer().getWorld().getName());
 		plugin.getLogger().info("Player '" + event.getPlayer().getName() + "' logging into world: " + event.getPlayer().getWorld().getName());
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		plugin.getLogger().info("Player '" + event.getPlayer().getName() + "' logging into world: " + event.getPlayer().getWorld().getName());
-		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && event.getPlayer().getWorld().getName().equalsIgnoreCase("homeworld_" + event.getPlayer().getName()))
-		{
-			final Player p = event.getPlayer();
-			this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
-				public void run() {
-					System.out.println("Attempting teleport.");
-					if(p != null && p.isOnline())
-						p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("mainworld").getSpawnLocation());
-				}
-			},3L);
-		}
-
 		if(event.getPlayer().getWorld().getName().startsWith("homeworld_") && !(LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName())))
 		{
 			Location nl = new Location(event.getPlayer().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
