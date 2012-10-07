@@ -91,7 +91,7 @@ public class PortNPC extends BasicNPC
 		this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "pex user " + player.getName() + " add AntiGuest.* homeworld_" + player.getName());
 
 
-		this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
+		this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
 			public void run() {
 				if(p == null || !p.isOnline())
 					return;

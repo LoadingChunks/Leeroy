@@ -65,7 +65,7 @@ public class Leeroy extends JavaPlugin {
 		
 		this.sql.PopNPCs();
 		final Leeroy plugin = this;
-		this.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			public void run() {
 				plugin.log.info("[LEEROY] Running checks on homeworlds.");
 				List<World> worlds = plugin.getServer().getWorlds();
