@@ -32,7 +32,7 @@ public class ButlerNPC extends BasicNPC
 	public void SetBroadcast(final String msg)
 	{
 		final HumanNPC tmp = this.npc;
-		this.plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(this.plugin, new Runnable() {
+		this.plugin.getServer().getScheduler().scheduleSyncRepeatingTask(this.plugin, new Runnable() {
 			public void run() {
 				List<Entity> entities = tmp.getBukkitEntity().getNearbyEntities(50,50,50);
 				for(Entity e : entities)

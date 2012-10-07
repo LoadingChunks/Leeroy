@@ -34,7 +34,7 @@ public class PortNPC extends BasicNPC
 			return;
 
 		final HumanNPC tmp = this.npc;
-		this.plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(this.plugin, new Runnable() {
+		this.plugin.getServer().getScheduler().scheduleSyncRepeatingTask(this.plugin, new Runnable() {
 			public void run() {
 				List<Entity> entities = tmp.getBukkitEntity().getNearbyEntities(10,5,10);
 				for(Entity e : entities)
