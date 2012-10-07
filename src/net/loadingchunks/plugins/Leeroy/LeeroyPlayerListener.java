@@ -68,21 +68,24 @@ public class LeeroyPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerChangeWorld(PlayerChangedWorldEvent event)
 	{
-		if(event.getFrom().getName().startsWith("homeworld_"))
+		World to = event.getPlayer().getWorld();
+		World from = event.getFrom();
+
+		if(from.getName().startsWith("homeworld_"))
 		{
-			if(LeeroyUtils.hasNPC(this.plugin, event.getFrom().getName()) && this.plugin.NPCList.containsKey(event.getPlayer().getWorld().getName() + "_butler") && event.getFrom().getPlayers().isEmpty())
+			if(LeeroyUtils.hasNPC(this.plugin, from.getName()) && this.plugin.NPCList.containsKey(from.getName() + "_butler") && from.getPlayers().isEmpty())
 			{
 				((ButlerNPC)this.plugin.NPCList.get(event.getFrom().getName() + "_butler")).npc.removeFromWorld();
 				this.plugin.NPCList.remove(event.getFrom().getName() + "_butler");
 			}
 		}
 		
-		if(event.getPlayer().getWorld().getName().startsWith("homeworld_"))
+		if(to.getName().startsWith("homeworld_"))
 		{
-			if(!LeeroyUtils.hasNPC(this.plugin, event.getPlayer().getWorld().getName()))
+			if(!LeeroyUtils.hasNPC(this.plugin, to.getName()))
 			{
-				Location nl = new Location(event.getPlayer().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
-				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getPlayer().getWorld().getName(), event.getPlayer().getWorld().getName() + "_butler");
+				Location nl = new Location(to, this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
+				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, to.getName(), to.getName() + "_butler");
 			}
 		}
 	}
@@ -90,12 +93,14 @@ public class LeeroyPlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent event)
 	{
-		if(event.getTo().getWorld().getName().startsWith("homeworld_"))
+		World to = event.getTo().getWorld();
+		
+		if(to.getName().startsWith("homeworld_"))
 		{
-			if(!LeeroyUtils.hasNPC(this.plugin, event.getTo().getWorld().getName()))
+			if(!LeeroyUtils.hasNPC(this.plugin, to.getName()))
 			{
-				Location nl = new Location(event.getTo().getWorld(), this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
-				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, event.getTo().getWorld().getName(), event.getTo().getWorld().getName() + "_butler");
+				Location nl = new Location(to, this.plugin.getConfig().getDouble("home.butler.x"), this.plugin.getConfig().getDouble("home.butler.y"), this.plugin.getConfig().getDouble("home.butler.z"));
+				this.plugin.npcs.spawn("butler",this.plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, to.getName(), to.getName() + "_butler");
 			}
 		}
 	}

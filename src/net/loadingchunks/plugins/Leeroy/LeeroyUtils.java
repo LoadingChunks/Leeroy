@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import org.bukkit.World;
 
@@ -85,7 +86,8 @@ public class LeeroyUtils {
 	
 	public static Boolean hasNPC(Leeroy p, String w)
 	{
-		if(p.NPCList.containsKey(w + "_butler"))
+		HashMap<String, Object> tmplist = p.NPCList;
+		if(tmplist.containsKey(w + "_butler"))
 			return true;
 		else
 			return false;
