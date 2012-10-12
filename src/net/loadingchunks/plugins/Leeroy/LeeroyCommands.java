@@ -181,6 +181,15 @@ public class LeeroyCommands implements CommandExecutor
 					sender.sendMessage("Config reloaded!");
 					return true;
 				}
+			} else if(args[0].equalsIgnoreCase("list"))
+			{
+				if(sender.isOp())
+				{
+					for(String s : this.plugin.getConfig().getStringList("general.templates"))
+					{
+						sender.sendMessage("- " + s);
+					}
+				}
 			}
 		}
 		
