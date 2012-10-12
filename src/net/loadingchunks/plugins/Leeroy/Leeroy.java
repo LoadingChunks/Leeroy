@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -87,6 +88,15 @@ public class Leeroy extends JavaPlugin {
 						plugin.log.info("[LEEROY] No NPC found in loaded world " + w.getName());
 						Location nl = new Location(w, plugin.getConfig().getDouble("home.butler.x"), plugin.getConfig().getDouble("home.butler.y"), plugin.getConfig().getDouble("home.butler.z"));
 						plugin.npcs.spawn("butler",plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, w.getName(), w.getName() + "_butler");
+					}
+				}
+				
+				for(Player p : plugin.getServer().getOnlinePlayers())
+				{
+					if(p.getName().equalsIgnoreCase("Herobrine") && !p.getWorld().getName().startsWith("homeworld_"))
+					{
+						plugin.log.info("[LEEROY] Herobrine found outside of his cage, removing!");
+						p.remove();
 					}
 				}
 			}
