@@ -211,8 +211,10 @@ public class LeeroyCommands implements CommandExecutor
 						if(LeeroyUtils.hasNPC(plugin, w.getName()) && plugin.NPCList.containsKey(w.getName() + "_butler"))
 						{
 							plugin.log.info("[LEEROY] Redundant NPC Found in " + w.getName());
+							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.moveTo(plugin.mvcore.getMVWorldManager().getFirstSpawnWorld().getSpawnLocation());
 							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.removeFromWorld();
 							plugin.NPCList.remove(w.getName() + "_butler");
+							plugin.log.info("[LEEROY] Redundant NPC " + w.getName() + "_butler has been removed.");
 						}
 						plugin.mvcore.getMVWorldManager().unloadWorld(w.getName());
 					} else if (w.getPlayers().size() > 0 && w.getName().startsWith("homeworld_") && !LeeroyUtils.hasNPC(plugin, w.getName()))
