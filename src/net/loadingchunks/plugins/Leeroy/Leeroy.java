@@ -74,7 +74,7 @@ public class Leeroy extends JavaPlugin {
 					if(w == null)
 						continue;
 
-					if(w.getName().startsWith("homeworld_") && w.getPlayers().isEmpty())
+					if(w.getName().startsWith("homeworld_") && (w.getPlayers().isEmpty() || (w.getPlayers().size() == 1 && (w.getPlayers().get(0).getAddress() == null))))
 					{
 						plugin.log.info("[LEEROY] Checking " + w.getName());
 						if(LeeroyUtils.hasNPC(plugin, w.getName()) && plugin.NPCList.containsKey(w.getName() + "_butler"))
