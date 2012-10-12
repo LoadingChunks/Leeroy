@@ -1,6 +1,7 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
 import java.util.List;
+import java.util.Random;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
@@ -131,7 +132,11 @@ public class PortNPC extends BasicNPC
 			this.plugin.log.info("[LEEROY] Player " + p.getName() + " has no home world, let's make them one!");
 			this.plugin.log.info("[LEEROY] Creating world file from template...");
 			
-			LeeroyUtils.DuplicateWorld(this.plugin.getServer().getWorld("homeworld"), this.plugin, "homeworld_" + p.getName());
+			Random rand = new Random();
+			
+			String randworld = (String) this.plugin.getConfig().getList("general.templates").get(rand.nextInt(this.plugin.getConfig().getStringList("general.templates").size()-1));
+			
+			LeeroyUtils.DuplicateWorld(this.plugin.getServer().getWorld(randworld), this.plugin, "homeworld_" + p.getName());
 			
 			this.plugin.log.info("[LEEROY] Adding to WM...");
 			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mv import homeworld_" + p.getName() + " normal");

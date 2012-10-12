@@ -54,8 +54,6 @@ public class Leeroy extends JavaPlugin {
 		
 		log.info("[LEEROY] Time to create the saved NPCs.");
 		
-		log.info("[LEEROY] Border Limits on Home World: Min X = " + this.getConfig().getDouble("home.border.x-min") + ", Max X = " + this.getConfig().getDouble("home.border.x-max") + ", Min Z = " + this.getConfig().getDouble("home.border.z-min") + ", Max Z " + this.getConfig().getDouble("home.border.z-max"));
-
 		this.npcs = new LeeroyNPCHandler(this);
 
 		this.sql = new LeeroySQL(this);
