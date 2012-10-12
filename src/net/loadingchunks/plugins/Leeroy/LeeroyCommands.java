@@ -229,6 +229,7 @@ public class LeeroyCommands implements CommandExecutor
 						plugin.npcs.spawn("butler",plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, w.getName(), w.getName() + "_butler");
 					}
 				}
+				return true;
 			}
 		}
 		
