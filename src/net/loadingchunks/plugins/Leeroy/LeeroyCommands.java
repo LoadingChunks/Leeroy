@@ -18,6 +18,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.fusesource.jansi.Ansi.Color;
+import org.bukkit.craftbukkit.CraftWorld;
 
 public class LeeroyCommands implements CommandExecutor
 {
@@ -213,7 +214,7 @@ public class LeeroyCommands implements CommandExecutor
 							plugin.log.info("[LEEROY] Redundant NPC Found in " + w.getName());
 							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.moveTo(plugin.mvcore.getMVWorldManager().getFirstSpawnWorld().getSpawnLocation());
 							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.getEntity().getBukkitEntity().remove();
-							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.removeFromWorld();
+							((CraftWorld) w).getHandle().getPlayerManager().a().removeEntity(((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.getEntity());
 							plugin.NPCList.remove(w.getName() + "_butler");
 							plugin.log.info("[LEEROY] Redundant NPC " + w.getName() + "_butler has been removed.");
 						}
@@ -222,6 +223,7 @@ public class LeeroyCommands implements CommandExecutor
 							sender.sendMessage("Error purging world " + w.getName());
 							sender.sendMessage("Players/NPCs in World: " + w.getPlayers().size());
 							sender.sendMessage("Players: " + w.getPlayers().toString());
+							sender.sendMessage("HandlePlayers: " + ((CraftWorld) w).getHandle().players.size());
 						}
 					} else if (w.getPlayers().size() > 0 && w.getName().startsWith("homeworld_") && !LeeroyUtils.hasNPC(plugin, w.getName()))
 					{
