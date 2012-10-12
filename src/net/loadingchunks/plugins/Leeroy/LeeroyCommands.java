@@ -173,6 +173,10 @@ public class LeeroyCommands implements CommandExecutor
 					}
 				}
 				return true;
+			} else if(args[0].equalsIgnoreCase("reload"))
+			{
+				if(sender.isOp())
+					this.plugin.reloadConfig();
 			}
 		}
 		
