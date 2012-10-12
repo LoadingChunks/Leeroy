@@ -176,7 +176,11 @@ public class LeeroyCommands implements CommandExecutor
 			} else if(args[0].equalsIgnoreCase("reload"))
 			{
 				if(sender.isOp())
+				{
 					this.plugin.reloadConfig();
+					sender.sendMessage("Config reloaded!");
+					return true;
+				}
 			}
 		}
 		
