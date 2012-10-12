@@ -134,7 +134,14 @@ public class PortNPC extends BasicNPC
 			
 			Random rand = new Random();
 			
-			String randworld = (String) this.plugin.getConfig().getList("general.templates").get(rand.nextInt(this.plugin.getConfig().getStringList("general.templates").size()-1));
+			this.plugin.log.info("[LEEROY] Picking from " + this.plugin.getConfig().getStringList("general.templates").size() + " templates.");
+			
+			int randomnum = rand.nextInt(this.plugin.getConfig().getStringList("general.templates").size());
+			
+			if(randomnum != 0)
+				randomnum--;
+			
+			String randworld = (String) this.plugin.getConfig().getList("general.templates").get(randomnum);
 			
 			LeeroyUtils.DuplicateWorld(this.plugin.getServer().getWorld(randworld), this.plugin, "homeworld_" + p.getName());
 			
