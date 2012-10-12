@@ -93,9 +93,9 @@ public class Leeroy extends JavaPlugin {
 				
 				for(Player p : plugin.getServer().getOnlinePlayers())
 				{
-					if(p.getName().equalsIgnoreCase("Herobrine") && !p.getWorld().getName().startsWith("homeworld_"))
+					if(p.getName().equalsIgnoreCase("Herobrine") && (p.getWorld() == null || !p.getWorld().getName().startsWith("homeworld_")))
 					{
-						plugin.log.info("[LEEROY] Herobrine found outside of his cage, removing!");
+						plugin.log.info("[LEEROY] Herobrine found outside of his cage, removing!");	
 						p.remove();
 					}
 				}
