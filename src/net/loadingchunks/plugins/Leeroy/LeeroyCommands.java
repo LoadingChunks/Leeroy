@@ -5,8 +5,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import net.loadingchunks.plugins.Leeroy.Types.BasicNPC;
+import net.loadingchunks.plugins.Leeroy.Types.ButlerNPC;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -188,6 +191,35 @@ public class LeeroyCommands implements CommandExecutor
 					for(String s : this.plugin.getConfig().getStringList("general.templates"))
 					{
 						sender.sendMessage("- " + s);
+					}
+				}
+			} else if(args[0].equalsIgnoreCase("purge"))
+			{
+				if(!sender.isOp())
+						return false;
+
+				plugin.log.info("[LEEROY] Running checks on homeworlds.");
+				List<World> worlds = plugin.getServer().getWorlds();
+				for(World w : worlds)
+				{
+					if(w == null)
+						continue;
+
+					if(w.getName().startsWith("homeworld_") && (w.getPlayers().isEmpty() || (w.getPlayers().size() == 1 && (w.getPlayers().get(0).getAddress() == null))))
+					{
+						plugin.log.info("[LEEROY] Checking " + w.getName());
+						if(LeeroyUtils.hasNPC(plugin, w.getName()) && plugin.NPCList.containsKey(w.getName() + "_butler"))
+						{
+							plugin.log.info("[LEEROY] Redundant NPC Found in " + w.getName());
+							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.removeFromWorld();
+							plugin.NPCList.remove(w.getName() + "_butler");
+						}
+						plugin.mvcore.getMVWorldManager().unloadWorld(w.getName());
+					} else if (w.getPlayers().size() > 0 && w.getName().startsWith("homeworld_") && !LeeroyUtils.hasNPC(plugin, w.getName()))
+					{
+						plugin.log.info("[LEEROY] No NPC found in loaded world " + w.getName());
+						Location nl = new Location(w, plugin.getConfig().getDouble("home.butler.x"), plugin.getConfig().getDouble("home.butler.y"), plugin.getConfig().getDouble("home.butler.z"));
+						plugin.npcs.spawn("butler",plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, w.getName(), w.getName() + "_butler");
 					}
 				}
 			}
