@@ -90,6 +90,7 @@ public class PortNPC extends BasicNPC
 		player.sendMessage("<" + this.name + "> You'll be transported to your homeworld in 5 seconds");
 		player.sendMessage("<" + this.name + "> Thank you for using the Chunky Transport System!");
 		this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "pex user " + player.getName() + " add AntiGuest.* homeworld_" + player.getName());
+		this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "tl set homeworld_" + player.getName() + " night");
 
 
 		this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
