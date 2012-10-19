@@ -84,6 +84,6 @@ public class ShopNPC extends BasicNPC
 			p.sendMessage(ChatColor.GOLD + "/hw " + comm.commandString + " - " + comm.commandDescription);
 		}
 		
-		p.sendMessage("To purchase an upgrade, use " + ChatColor.GOLD + "/upgrade <upgradename>" + ChatColor.GOLD + ", for instance " + ChatColor.GOLD + "/upgrade weather" + ChatColor.GOLD + " to control your homeworld's weather.");
+		p.sendMessage("To purchase an upgrade, use " + ChatColor.GOLD + "/upgrade <upgradename>" + ChatColor.WHITE + ", for instance " + ChatColor.GOLD + "/upgrade weather" + ChatColor.WHITE+ " to control your homeworld's weather.");
 	}
 }
