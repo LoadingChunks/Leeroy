@@ -141,10 +141,11 @@ public class LeeroySQL {
 					commands.add(cmdtmp);
 				} while(result.next());
 				
-				this.commCache = (LeeroyHomeCommand[])commands.toArray();
-				
 				this.lastCommandGet = System.currentTimeMillis() / 1000L;
 				LeeroyHomeCommand[] tmparr = new LeeroyHomeCommand[commands.size()];
+				
+				this.commCache = commands.toArray(tmparr);
+				
 				return commands.toArray(tmparr);
 			}
 		} catch (SQLException e) {
