@@ -304,11 +304,11 @@ public class LeeroyCommands implements CommandExecutor
 			
 			for(String arg : args)
 			{
-				executor = executor.replaceAll("{arg" + argcount + "}", arg);
+				executor = executor.replace("{arg" + argcount + "}", arg);
 			}
 			
-			executor = executor.replaceAll("{player}", p.getName());
-			executor = executor.replaceAll("{playerdisplay}", p.getDisplayName());
+			executor = executor.replace("{player}", p.getName());
+			executor = executor.replace("{playerdisplay}", p.getDisplayName());
 			
 			// Protective checks
 			if(command.commandCheck.length != (args.length - 1))
