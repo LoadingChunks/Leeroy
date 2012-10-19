@@ -363,9 +363,12 @@ public class LeeroyCommands implements CommandExecutor
 			
 			String[] executors = executor.split("\n");
 			
+			this.plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + p.getName());
+			
 			for(String ex : executors)
 			{
 				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), ex);
+				return true;
 			}
 			
 			return false;
