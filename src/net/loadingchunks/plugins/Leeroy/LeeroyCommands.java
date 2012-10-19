@@ -367,6 +367,7 @@ public class LeeroyCommands implements CommandExecutor
 			
 			for(String ex : executors)
 			{
+				this.plugin.getLogger().info("[LEEROY] Executing Command: " + ex);
 				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), ex);
 				return true;
 			}
