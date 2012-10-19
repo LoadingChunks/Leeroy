@@ -370,10 +370,9 @@ public class LeeroyCommands implements CommandExecutor
 			{
 				this.plugin.getLogger().info("[LEEROY] Executing Command: " + ex);
 				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), ex);
-				return true;
 			}
 			
-			return false;
+			return true;
 		}
 		
 		if(cmd.getName().equalsIgnoreCase("upgrade"))
