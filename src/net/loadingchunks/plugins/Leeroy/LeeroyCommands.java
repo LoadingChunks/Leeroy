@@ -407,6 +407,7 @@ public class LeeroyCommands implements CommandExecutor
 				return true;
 			}
 			
+			this.plugin.sql.PurchaseCommand(command.commandString, p.getName());
 			this.plugin.eco.withdrawPlayer(p.getName(), command.commandPrice);
 			this.plugin.eco.depositPlayer("lcbank", command.commandPrice);
 			sender.sendMessage("Purchase successful!");
