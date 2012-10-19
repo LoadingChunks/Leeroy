@@ -122,7 +122,10 @@ public class LeeroySQL {
 			ResultSet result = stat.executeQuery();
 			
 			if(!result.last())
-				return (LeeroyHomeCommand[])commands.toArray();
+			{
+				LeeroyHomeCommand[] tmparr = new LeeroyHomeCommand[commands.size()];
+				return commands.toArray(tmparr);	
+			}
 			else {
 				result.first();
 				do
@@ -141,9 +144,14 @@ public class LeeroySQL {
 				this.commCache = (LeeroyHomeCommand[])commands.toArray();
 				
 				this.lastCommandGet = System.currentTimeMillis() / 1000L;
-				return (LeeroyHomeCommand[])commands.toArray();
+				LeeroyHomeCommand[] tmparr = new LeeroyHomeCommand[commands.size()];
+				return commands.toArray(tmparr);
 			}
-		} catch (SQLException e) { e.printStackTrace(); return (LeeroyHomeCommand[])commands.toArray(); }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			LeeroyHomeCommand[] tmparr = new LeeroyHomeCommand[commands.size()];
+			return commands.toArray(tmparr);	
+		}
 	}
 	
 	public Boolean PlayerHasCommand(String command, String player)
