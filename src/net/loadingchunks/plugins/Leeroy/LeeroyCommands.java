@@ -407,15 +407,10 @@ public class LeeroyCommands implements CommandExecutor
 				return true;
 			}
 			
-			if(this.plugin.sql.PurchaseCommand(args[0], p.getName()))
-			{
-				this.plugin.eco.withdrawPlayer(p.getName(), command.commandPrice);
-				this.plugin.eco.depositPlayer("lcbank", command.commandPrice);
-				sender.sendMessage("Purchase successful!");
-				return true;
-			} else {
-				sender.sendMessage(ChatColor.RED + "An error occurred while processing your purchase.");
-			}
+			this.plugin.eco.withdrawPlayer(p.getName(), command.commandPrice);
+			this.plugin.eco.depositPlayer("lcbank", command.commandPrice);
+			sender.sendMessage("Purchase successful!");
+			return true;
 		}
 		
 		if(cmd.getName().equalsIgnoreCase("accept"))
