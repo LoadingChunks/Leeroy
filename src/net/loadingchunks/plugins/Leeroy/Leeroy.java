@@ -35,6 +35,8 @@ public class Leeroy extends JavaPlugin {
 		getCommand("leeroy").setExecutor(this.cmdExecutor);
 		getCommand("invite").setExecutor(this.cmdExecutor);
 		getCommand("accept").setExecutor(this.cmdExecutor);
+		getCommand("hw").setExecutor(this.cmdExecutor);
+		getCommand("upgrade").setExecutor(this.cmdExecutor);
 
 		if(!this.getServer().getPluginManager().isPluginEnabled("Multiverse-Core"))
 		{

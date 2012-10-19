@@ -40,6 +40,8 @@ public class LeeroyNPCListener implements Listener
 				((PortNPC)this.plugin.NPCList.get(md.get(0).asString())).onHit(event.getDamager(), event);
 			else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcbutler"))
 				((ButlerNPC)this.plugin.NPCList.get(md.get(0).asString())).onHit(event.getDamager(), event);
+			else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcshop"))
+				((ShopNPC)this.plugin.NPCList.get(md.get(0).asString())).onHit(event.getDamager(), event);			
 
 			event.setDamage(0);
 		}
@@ -62,7 +64,9 @@ public class LeeroyNPCListener implements Listener
 				else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcport"))
 					((PortNPC)this.plugin.NPCList.get(md.get(0).asString())).onTarget((Player)event.getTarget(), event);
 				else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcbutler"))
-					((ButlerNPC)this.plugin.NPCList.get(md.get(0).asString())).onTarget((Player)event.getTarget(), event);					
+					((ButlerNPC)this.plugin.NPCList.get(md.get(0).asString())).onTarget((Player)event.getTarget(), event);
+				else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcshop"))
+					((ShopNPC)this.plugin.NPCList.get(md.get(0).asString())).onTarget((Player)event.getTarget(), event);
 			}
 		}		
 	}
@@ -91,6 +95,8 @@ public class LeeroyNPCListener implements Listener
 						((PortNPC)this.plugin.NPCList.get(md.get(0).asString())).onNear(event.getPlayer());
 					else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcbutler"))
 						((ButlerNPC)this.plugin.NPCList.get(md.get(0).asString())).onNear(event.getPlayer());
+					else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcshop"))
+						((ShopNPC)this.plugin.NPCList.get(md.get(0).asString())).onNear(event.getPlayer());
 				}
 			}
 		}

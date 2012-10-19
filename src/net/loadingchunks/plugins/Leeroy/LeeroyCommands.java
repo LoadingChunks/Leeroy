@@ -276,6 +276,142 @@ public class LeeroyCommands implements CommandExecutor
 			return false;
 		}
 		
+		if(cmd.getName().equalsIgnoreCase("hw"))
+		{
+			if(!(sender instanceof Player))
+			{
+				sender.sendMessage("You can only do this in-game!");
+				return true;
+			}
+			
+			Player p = (Player)sender;
+			
+			if(args.length < 1)
+			{
+				return false;
+			}
+			
+			LeeroyHomeCommand command = this.plugin.sql.GetCommand(args[0]);
+			
+			if(!this.plugin.sql.PlayerHasCommand(command.commandString, p.getName()))
+				return false;
+			
+			String executor = command.commandExec;
+			int argcount = 1;
+			
+			for(String arg : args)
+			{
+				executor = executor.replaceAll("{arg" + argcount + "}", arg);
+			}
+			
+			executor = executor.replaceAll("{player}", p.getName());
+			executor = executor.replaceAll("{playerdisplay}", p.getDisplayName());
+			
+			// Protective checks
+			if(command.commandCheck.length != (args.length - 1))
+			{
+				sender.sendMessage("Invalid arguments given for command /hw " + command.commandString);
+				sender.sendMessage(ChatColor.GOLD + command.commandDescription + ChatColor.WHITE);
+				return true;
+			}
+			
+			argcount = 0;
+			
+			for(String a : args)
+			{
+				if(argcount == 0)
+				{
+					argcount++;
+					continue;
+				}
+				
+				switch(command.commandCheck[argcount-1])
+				{
+					case "Player":
+						if(this.plugin.getServer().getPlayer(a) == null)
+						{
+							sender.sendMessage(ChatColor.RED + "Player " + a + " not found.");
+							return true;
+						}
+						break;
+						
+					case "Integer":
+						try {
+							Integer.parseInt(a);
+						} catch(NumberFormatException e)
+						{
+							sender.sendMessage(ChatColor.RED + "Invalid number, you supplied " + a);
+							return true;
+						}
+						break;
+						
+					case "String":
+						break;
+					
+					default:
+						sender.sendMessage(ChatColor.RED + "An unknown error occurred while checking your command.");
+						this.plugin.getLogger().warning("Bad Homeworld Argument Type Given: " + command.commandCheck[argcount]);
+						return true;
+				}
+			}
+			
+			String[] executors = executor.split("\n");
+			
+			for(String ex : executors)
+			{
+				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), ex);
+			}
+			
+			return false;
+		}
+		
+		if(cmd.getName().equalsIgnoreCase("upgrade"))
+		{
+			if(!(sender instanceof Player))
+			{
+				sender.sendMessage("You can only do this in-game!");
+				return true;
+			}
+			
+			Player p = (Player)sender;
+			
+			if(args.length != 1)
+			{
+				sender.sendMessage("You need to specify an upgrade to buy!");
+				return false;
+			}
+			
+			if(this.plugin.sql.PlayerHasCommand(args[0], p.getName()))
+			{
+				sender.sendMessage("You have already purchased this upgrade!");
+				return true;
+			}
+			
+			LeeroyHomeCommand command = this.plugin.sql.GetCommand(args[0]);
+			
+			if(command == null)
+			{
+				sender.sendMessage("Unknown command.");
+				return true;
+			}
+			
+			if(!this.plugin.eco.has(p.getName(), command.commandPrice))
+			{
+				sender.sendMessage("You don't have enough money for this upgrade, it costs $" + ChatColor.GOLD + command.commandPrice + ChatColor.WHITE + " and you have $" + ChatColor.GOLD + this.plugin.eco.bankBalance(p.getName()) + ChatColor.WHITE + ".");
+				return true;
+			}
+			
+			if(this.plugin.sql.PurchaseCommand(args[0], p.getName()))
+			{
+				this.plugin.eco.withdrawPlayer(p.getName(), command.commandPrice);
+				this.plugin.eco.depositPlayer("lcbank", command.commandPrice);
+				sender.sendMessage("Purchase successful!");
+				return true;
+			} else {
+				sender.sendMessage(ChatColor.RED + "An error occurred while processing your purchase.");
+			}
+		}
+		
 		if(cmd.getName().equalsIgnoreCase("accept"))
 		{
 			if(!(sender instanceof Player))

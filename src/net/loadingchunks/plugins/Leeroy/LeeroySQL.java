@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.bukkit.Location;
 
@@ -14,7 +16,9 @@ public class LeeroySQL {
 	public Connection con;
 	public Statement stmt;
 	public boolean success;
-
+	public long lastCommandGet = 0;
+	public LeeroyHomeCommand[] commCache;
+	
 	public LeeroySQL(Leeroy plugin)
 	{
 		this.plugin = plugin;
@@ -79,6 +83,91 @@ public class LeeroySQL {
 				} while(result.next());
 			}
 		} catch ( SQLException e ) { e.printStackTrace(); }
+	}
+	
+	public LeeroyHomeCommand GetCommand(String command)
+	{
+		try {
+			PreparedStatement stat = con.prepareStatement("SELECT * FROM `leeroy_commands` WHERE command = ?");
+			stat.setString(1, command);
+			ResultSet result = stat.executeQuery();
+			
+			if(!result.last())
+				return null;
+			else {
+				result.first();
+				LeeroyHomeCommand comm = new LeeroyHomeCommand();
+				comm.commandDescription = result.getString("description");
+				comm.commandExec = result.getString("execute");
+				comm.commandPrice = result.getInt("price");
+				comm.commandString = result.getString("command");
+				
+				comm.commandCheck = result.getString("checks").split("\n");
+				
+				return comm;
+			}
+		} catch (SQLException e) { e.printStackTrace(); return null; }
+	}
+	
+	public LeeroyHomeCommand[] GetCommands()
+	{
+		ArrayList<LeeroyHomeCommand> commands = new ArrayList<LeeroyHomeCommand>();
+		
+		if(this.lastCommandGet > ((System.currentTimeMillis() / 1000L) - 60))
+			return this.commCache;
 
+		try {
+			PreparedStatement stat = con.prepareStatement("SELECT * FROM `leeroy_commands` ORDER BY `command` ASC");
+			ResultSet result = stat.executeQuery();
+			
+			if(!result.last())
+				return (LeeroyHomeCommand[])commands.toArray();
+			else {
+				result.first();
+				do
+				{
+					LeeroyHomeCommand cmdtmp = new LeeroyHomeCommand();
+					cmdtmp.commandCheck = result.getString("checks").split("\n");
+					cmdtmp.commandDescription = result.getString("description");
+					cmdtmp.commandExec = result.getString("execute");
+					cmdtmp.commandPrice = result.getInt("price");
+					cmdtmp.commandString = result.getString("command");
+					
+					commands.add(cmdtmp);
+				} while(result.next());
+				
+				this.commCache = (LeeroyHomeCommand[])commands.toArray();
+				
+				this.lastCommandGet = System.currentTimeMillis() / 1000L;
+				return (LeeroyHomeCommand[])commands.toArray();
+			}
+		} catch (SQLException e) { e.printStackTrace(); return (LeeroyHomeCommand[])commands.toArray(); }
+	}
+	
+	public Boolean PlayerHasCommand(String command, String player)
+	{
+		try {
+			PreparedStatement stat = con.prepareStatement("SELECT * FROM `leeroy_commandpurchases` WHERE command = ? AND player = ?");
+			stat.setString(1, command);
+			stat.setString(2, player);
+			ResultSet result = stat.executeQuery();
+			
+			if(!result.last())
+				return false;
+			else {
+				return true;
+			}
+		} catch (SQLException e) { e.printStackTrace(); return false; }
+	}
+	
+	public Boolean PurchaseCommand(String command, String player)
+	{
+		try {
+			PreparedStatement stat = con.prepareStatement("INSERT INTO `leeroy_commandpurchases` (`command`,`player`,`time`) VALUES (?,?,NOW())");
+			stat.setString(1,command);
+			stat.setString(2,player);
+			
+			return stat.execute();
+		} catch (SQLException e) { e.printStackTrace(); return false; }
 	}
 }

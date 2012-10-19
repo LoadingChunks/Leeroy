@@ -46,6 +46,9 @@ public class LeeroyNPCHandler {
 			} else if (type.equalsIgnoreCase("butler"))
 			{
 				this.plugin.NPCList.put(id, new ButlerNPC(this.plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world));
+			} else if (type.equalsIgnoreCase("shop"))
+			{
+				this.plugin.NPCList.put(id, new ShopNPC(this.plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world));
 			}
 
 		} catch (NoSuchAlgorithmException e) {
