@@ -178,6 +178,8 @@ public class LeeroySQL {
 			stat.setString(1,command);
 			stat.setString(2,player);
 			
+			stat.execute();
+			
 			return true;
 		} catch (SQLException e) { e.printStackTrace(); return false; }
 	}
