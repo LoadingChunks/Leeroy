@@ -300,11 +300,12 @@ public class LeeroyCommands implements CommandExecutor
 			}
 			
 			String executor = command.commandExec;
-			int argcount = 1;
+			int argcount = 0;
 			
 			for(String arg : args)
 			{
-				executor = executor.replace("{arg" + (argcount-1) + "}", arg);
+				executor = executor.replace("{arg" + (argcount) + "}", arg);
+				argcount++;
 			}
 			
 			executor = executor.replace("{player}", p.getName());
