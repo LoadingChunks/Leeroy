@@ -81,7 +81,7 @@ public class ShopNPC extends BasicNPC
 		
 		for(LeeroyHomeCommand comm : commands)
 		{
-			p.sendMessage(ChatColor.GOLD + "/hw " + comm.commandString + ChatColor.WHITE + " - " + comm.commandDescription);
+			p.sendMessage(ChatColor.GOLD + "/hw " + comm.commandString + ChatColor.WHITE + " - $" + ChatColor.AQUA + comm.commandPrice + ChatColor.WHITE + " - " + comm.commandDescription);
 		}
 		
 		p.sendMessage("To purchase an upgrade, use " + ChatColor.GOLD + "/upgrade <upgradename>" + ChatColor.WHITE + ", for instance " + ChatColor.GOLD + "/upgrade weather" + ChatColor.WHITE+ " to control your homeworld's weather.");

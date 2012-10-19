@@ -368,6 +368,10 @@ public class LeeroyCommands implements CommandExecutor
 			
 			for(String ex : executors)
 			{
+				if(ex.length() < 3)
+				{
+					continue; // No command will be less than 3 characters...
+				}
 				this.plugin.getLogger().info("[LEEROY] Executing Command: " + ex);
 				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), ex);
 			}
