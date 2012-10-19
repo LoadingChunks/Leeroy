@@ -28,7 +28,7 @@ public class ShopNPC extends BasicNPC
 
 	public ShopNPC(Leeroy plugin, String name, Location l, String id, String msg1, String msg2, String msg3, String msg4, boolean isnew, String world)
 	{
-		super(plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world, "port", "leeroy_npcshop");
+		super(plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world, "shop", "leeroy_npcshop");
 	}
 
 	@Override
