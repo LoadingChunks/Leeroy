@@ -101,6 +101,7 @@ public class LeeroySQL {
 				comm.commandExec = result.getString("execute");
 				comm.commandPrice = result.getInt("price");
 				comm.commandString = result.getString("command");
+				comm.commandUsage = result.getString("usage");
 				
 				comm.commandCheck = result.getString("checks").split("\n");
 				
@@ -132,6 +133,7 @@ public class LeeroySQL {
 					cmdtmp.commandExec = result.getString("execute");
 					cmdtmp.commandPrice = result.getInt("price");
 					cmdtmp.commandString = result.getString("command");
+					cmdtmp.commandUsage = result.getString("usage");
 					
 					commands.add(cmdtmp);
 				} while(result.next());

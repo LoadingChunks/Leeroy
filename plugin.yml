@@ -3,10 +3,6 @@ main: net.loadingchunks.plugins.Leeroy.Leeroy
 version: 0.9
 depend: [Multiverse-Core]
 commands:
-    hc:
-        description: Control the HouseCarl system.
-        usage: |
-            /hc portal home - Set the current selection for Home World Portal detection.
     leeroy:
         description: Interacts with Leeroy NPCs, in the main worlds to port to your home world, in your home world to go back to the main world.
         usage: |
@@ -24,3 +20,11 @@ commands:
         description: Accept a player's invitation to their home world.
         usage: |
             /accept - Accept a player's invitation to their home world.
+    hw:
+        description: Used to control your homeworld using purchaseable upgrades.
+        usage: |
+            /hw <command> [arguments] - Used to execute commands with optional parameters.
+    upgrade:
+        description: Used to buy upgrades for your homeworld.
+        usage: |
+            /upgrade <upgrade> - Used to buy the specified upgrade.

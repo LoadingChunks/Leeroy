@@ -8,4 +8,5 @@ public class LeeroyHomeCommand {
 	public String commandExec = "";
 	public int commandPrice = 0;
 	public String[] commandCheck;
+	public String commandUsage = "";
 }

@@ -294,7 +294,10 @@ public class LeeroyCommands implements CommandExecutor
 			LeeroyHomeCommand command = this.plugin.sql.GetCommand(args[0]);
 			
 			if(!this.plugin.sql.PlayerHasCommand(command.commandString, p.getName()))
-				return false;
+			{
+				sender.sendMessage("You do not have access to that command.");
+				return true;
+			}
 			
 			String executor = command.commandExec;
 			int argcount = 1;
@@ -311,7 +314,7 @@ public class LeeroyCommands implements CommandExecutor
 			if(command.commandCheck.length != (args.length - 1))
 			{
 				sender.sendMessage("Invalid arguments given for command /hw " + command.commandString);
-				sender.sendMessage(ChatColor.GOLD + command.commandDescription + ChatColor.WHITE);
+				sender.sendMessage("Usage: " + command.commandUsage);
 				return true;
 			}
 			
@@ -331,6 +334,7 @@ public class LeeroyCommands implements CommandExecutor
 						if(this.plugin.getServer().getPlayer(a) == null)
 						{
 							sender.sendMessage(ChatColor.RED + "Player " + a + " not found.");
+							sender.sendMessage("Usage: " + command.commandUsage);
 							return true;
 						}
 						break;
@@ -341,6 +345,7 @@ public class LeeroyCommands implements CommandExecutor
 						} catch(NumberFormatException e)
 						{
 							sender.sendMessage(ChatColor.RED + "Invalid number, you supplied " + a);
+							sender.sendMessage("Usage: " + command.commandUsage);
 							return true;
 						}
 						break;
@@ -351,6 +356,7 @@ public class LeeroyCommands implements CommandExecutor
 					default:
 						sender.sendMessage(ChatColor.RED + "An unknown error occurred while checking your command.");
 						this.plugin.getLogger().warning("Bad Homeworld Argument Type Given: " + command.commandCheck[argcount]);
+						sender.sendMessage("Usage: " + command.commandUsage);
 						return true;
 				}
 			}
