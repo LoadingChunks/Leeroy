@@ -411,7 +411,7 @@ public class LeeroyCommands implements CommandExecutor
 			
 			if(!this.plugin.eco.has(p.getName(), command.commandPrice))
 			{
-				sender.sendMessage("You don't have enough money for this upgrade, it costs $" + ChatColor.GOLD + command.commandPrice + ChatColor.WHITE + " and you have $" + ChatColor.GOLD + this.plugin.eco.bankBalance(p.getName()).balance + ChatColor.WHITE + ".");
+				sender.sendMessage("You don't have enough money for this upgrade, it costs $" + ChatColor.GOLD + command.commandPrice + ChatColor.WHITE + " and you have $" + ChatColor.GOLD + this.plugin.eco.getBalance(p.getName()) + ChatColor.WHITE + ".");
 				return true;
 			}
 			
