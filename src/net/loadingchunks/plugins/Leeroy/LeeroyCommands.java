@@ -304,7 +304,7 @@ public class LeeroyCommands implements CommandExecutor
 			
 			for(String arg : args)
 			{
-				executor = executor.replace("{arg" + argcount + "}", arg);
+				executor = executor.replace("{arg" + (argcount-1) + "}", arg);
 			}
 			
 			executor = executor.replace("{player}", p.getName());
