@@ -43,11 +43,14 @@ public class ButlerNPC extends BasicNPC
 						
 						if(p.getWorld().getName().equalsIgnoreCase("homeworld_" + p.getName()))
 						{
-							p.sendMessage("<" + npc.getName() + "> Welcome to your homeworld, " + p.getDisplayName() + "!");	
-						} else {
+							p.sendMessage("<" + npc.getName() + "> Welcome to your homeworld, " + p.getDisplayName() + "!");
+							p.sendMessage("<" + npc.getName() + "> Right click me to return to the main land.");
+						} else if(p.getWorld().getName().startsWith("homeworld_")){
 							p.sendMessage("<" + npc.getName() + "> Welcome to " + p.getWorld().getName().replace("homeworld_", "") + "'s homeworld, " + p.getDisplayName() + "!");
+							p.sendMessage("<" + npc.getName() + "> Right click me to return to the main land.");
+						} else {
+							p.sendMessage("<" + npc.getName() + "> This world is so strange.");
 						}
-						p.sendMessage("<" + npc.getName() + "> Right click me to return to the main land.");
 					}
 				}
 			}
