@@ -4,7 +4,6 @@
   <artifactId>Leeroy</artifactId>
   <version>1.0.2-SNAPSHOT</version>
   <name>Leeroy</name>
-  
     <repositories>
     <repository>
       <id>bukkit-repo</id>
