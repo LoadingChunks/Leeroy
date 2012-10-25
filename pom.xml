@@ -36,10 +36,7 @@
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
-    
   </dependencies>
-  
-  
   
   <build>
     <!-- Filter only plugin.yml -->
