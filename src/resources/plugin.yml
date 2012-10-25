@@ -1,0 +1,30 @@
+name: Leeroy
+main: net.loadingchunks.plugins.Leeroy.Leeroy
+version: 0.9
+depend: [Multiverse-Core]
+commands:
+    leeroy:
+        description: Interacts with Leeroy NPCs, in the main worlds to port to your home world, in your home world to go back to the main world.
+        usage: |
+            /leeroy home - Teleports you to your home world.
+            /leeroy mainland - [HOME ONLY] Teleports you back to the main land.
+            /leeroy spawn <type> <name> - [OP ONLY] Creates an NPC with specified name and type.
+            /leeroy kill <name> [radius] - [OP ONLY] Kills all NPCs with specified name (* for all) in the specified radius (optional, default is 5 blocks).
+            /leeroy angle - Provides you with your yaw and pitch.
+            /leeroy reload - [OP ONLY] Reloads the config.
+    invite:
+        description: Invites a player to your home world.
+        usage: |
+            /invite <player> - Invites a player to your home world.
+    accept:
+        description: Accept a player's invitation to their home world.
+        usage: |
+            /accept - Accept a player's invitation to their home world.
+    hw:
+        description: Used to control your homeworld using purchaseable upgrades.
+        usage: |
+            "/hw <command> [arguments] - Used to execute upgrade commands."
+    upgrade:
+        description: Used to buy upgrades for your homeworld.
+        usage: |
+            /upgrade <upgrade> - Used to buy the specified upgrade.
