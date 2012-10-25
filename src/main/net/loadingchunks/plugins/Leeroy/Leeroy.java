@@ -102,7 +102,7 @@ public class Leeroy extends JavaPlugin {
 					}
 				}
 			}
-		}, 60L, 2400L);
+		}, 60L, 6000L);
 		
 		// Init Vault
 		RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
