@@ -9,10 +9,10 @@
       <id>bukkit-repo</id>
       <url>http://repo.bukkit.org/content/groups/public/</url>
     </repository>
-    
+	
 	<repository>
-		<id>lc-repo</id>
-		<url>https://ci.loadingchunks.net/plugin/repository/everything</url>
+		<id>vault-repo</id>
+		<url>https://ci.herocraftonline.com/plugin/repository/project/Vault/LastSuccessful/repository/</url>
 	</repository>
   </repositories>
   
@@ -30,9 +30,8 @@
     <dependency>
       <groupId>net.milkbowl.vault</groupId>
       <artifactId>Vault</artifactId>
-      <version>1.2.7-SNAPSHOT</version>
+      <version>1.2.19-SNAPSHOT</version>
       <type>jar</type>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
   
