@@ -11,8 +11,8 @@
     </repository>
     
 	<repository>
-		<id>vault-repo</id>
-		<url>http://ci.herocraftonline.com/plugin/repository/everything</url>
+		<id>lc-repo</id>
+		<url>https://ci.loadingchunks.net/plugin/repository/everything</url>
 	</repository>
   </repositories>
   
@@ -22,7 +22,7 @@
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
       <!-- Bukkit API Version, change if out dated -->
-      <version>1.3.2-R2.0</version>
+      <version>1.4.2-R0.1-SNAPSHOT</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
