@@ -78,7 +78,7 @@ public class ButlerNPC extends BasicNPC
 		player.sendMessage("<" + this.name + "> You'll be transported to the main land in 5 seconds");
 		player.sendMessage("<" + this.name + "> Thank you for using the Chunky Transport System!");
 
-		this.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(this.plugin, new Runnable() {
+		this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
 			public void run() {
 				if(player == null || !player.isOnline())
 					return;
