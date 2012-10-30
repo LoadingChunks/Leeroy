@@ -12,7 +12,7 @@
 	
 	<repository>
 		<id>vault-repo</id>
-		<url>https://ci.herocraftonline.com/plugin/repository/project/Vault/LastSuccessful/repository/</url>
+		<url>http://ci.herocraftonline.com/plugin/repository/project/Vault/LastSuccessful/repository/</url>
 	</repository>
   </repositories>
   
