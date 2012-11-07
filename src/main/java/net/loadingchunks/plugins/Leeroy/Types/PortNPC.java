@@ -89,9 +89,11 @@ public class PortNPC extends BasicNPC
 
 		player.sendMessage("<" + this.name + "> You'll be transported to your homeworld in 5 seconds");
 		player.sendMessage("<" + this.name + "> Thank you for using the Chunky Transport System!");
-		this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "pex user " + player.getName() + " add AntiGuest.* homeworld_" + player.getName());
-		this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "tl set homeworld_" + player.getName() + " night");
-
+		
+		for(String command : this.plugin.getConfig().getStringList("events.onEnter"))
+		{
+			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), command.replace("{player}", player.getName()));	
+		}
 
 		this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
 			public void run() {
@@ -147,14 +149,12 @@ public class PortNPC extends BasicNPC
 			LeeroyUtils.DuplicateWorld(this.plugin.getServer().getWorld(randworld), this.plugin, "homeworld_" + p.getName());
 			
 			this.plugin.log.info("[LEEROY] Adding to WM...");
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mv import homeworld_" + p.getName() + " normal");
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set monsters false homeworld_" + p.getName());
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set pvp false homeworld_" + p.getName());
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set hidden true homeworld_" + p.getName());
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set animals false homeworld_" + p.getName());
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set hunger false homeworld_" + p.getName());
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "mvm set autoload false homeworld_" + p.getName());
-			this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), "pex user " + p.getName() + " add AntiGuest.* homeworld_" + p.getName());
+			
+			for(String command : (List<String>)this.plugin.getConfig().getStringList("events.onBuild"))
+			{
+				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), command.replace("{player}", p.getName()));	
+			}
+
 			if(!this.plugin.getMVCore().getMVWorldManager().loadWorld("homeworld_" + p.getName()))
 			{
 				p.sendMessage("<" + this.name + "> Something went wrong! Please alert an admin and provide Error Code: 404");

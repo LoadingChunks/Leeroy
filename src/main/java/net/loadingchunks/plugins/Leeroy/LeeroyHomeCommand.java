@@ -1,7 +1,5 @@
 package net.loadingchunks.plugins.Leeroy;
 
-import java.util.ArrayList;
-
 public class LeeroyHomeCommand {
 	public String commandString = "";
 	public String commandDescription = "";

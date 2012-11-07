@@ -1,20 +1,12 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
 import java.util.List;
-import java.util.Random;
-
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyHomeCommand;
-import net.loadingchunks.plugins.Leeroy.LeeroySQL;
-import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import com.topcat.npclib.entity.HumanNPC;
 import com.topcat.npclib.nms.NpcEntityTargetEvent;

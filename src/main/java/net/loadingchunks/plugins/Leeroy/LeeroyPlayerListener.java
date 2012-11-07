@@ -1,21 +1,15 @@
 package net.loadingchunks.plugins.Leeroy;
 
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.util.Vector;
-
 import net.loadingchunks.plugins.Leeroy.Types.*;
 
 public class LeeroyPlayerListener implements Listener {
