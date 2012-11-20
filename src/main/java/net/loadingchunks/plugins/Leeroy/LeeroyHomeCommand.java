@@ -7,4 +7,6 @@ public class LeeroyHomeCommand {
 	public int commandPrice = 0;
 	public String[] commandCheck;
 	public String commandUsage = "";
+	
+	public LeeroyHomeCommand() {}
 }

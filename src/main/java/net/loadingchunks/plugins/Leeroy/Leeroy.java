@@ -115,6 +115,14 @@ public class Leeroy extends JavaPlugin {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		for(Object npc : this.NPCList.values())
+		{
+			((BasicNPC)npc).npc.removeFromWorld();
+		}
+		
+		this.NPCList.clear();
+		
 		log.info("[LEEROY] JEEEEENKIIIINS");
 	}
 	

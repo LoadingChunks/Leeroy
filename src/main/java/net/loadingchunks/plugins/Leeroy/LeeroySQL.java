@@ -24,6 +24,11 @@ public class LeeroySQL {
 
 		this.plugin.log.info("[LEEROY] Connecting to MySQL Server with " + this.plugin.getConfig().getString("db.addr") + " and user " + this.plugin.getConfig().getString("db.user"));
 
+		SQLConnect();
+	}
+	
+	public void SQLConnect()
+	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.con = DriverManager.getConnection(this.plugin.getConfig().getString("db.addr"), this.plugin.getConfig().getString("db.user"), this.plugin.getConfig().getString("db.pass"));
@@ -32,6 +37,17 @@ public class LeeroySQL {
 			e.printStackTrace();
 			this.success = false;
 		} catch (ClassNotFoundException e) { e.printStackTrace(); this.success = false; }
+	}
+	
+	public void SQLPing()
+	{
+		try {
+			if(this.con.isClosed())
+				SQLConnect();
+		} catch (SQLException e) {
+			SQLConnect();
+			e.printStackTrace();
+		}
 	}
 
 	public void AddNPC(String id, String name, String type, Location loc, String world)
