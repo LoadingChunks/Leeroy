@@ -294,11 +294,81 @@ public class LeeroyCommands implements CommandExecutor
 				return false;
 			}
 			
+			// These ones aren't in the DB, but use the same format for convenience.
+			if(args[0].equalsIgnoreCase("npc"))
+			{
+				if(args.length < 2)
+				{
+					sender.sendMessage("Valid NPC Commands: move, rename <name>");
+					return true;
+				} else {
+					if(args[1].equalsIgnoreCase("move"))
+					{
+						if(!p.hasPermission("leeroy.homeworld.npc.move"))
+						{
+							sender.sendMessage("You do not have permission to move your Homeworld NPC!");
+							return true;
+						}
+						
+						if(p.getWorld().getName().equals("homeworld_" + p.getName()))
+						{
+							this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.x", p.getLocation().getX());
+							this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.y", p.getLocation().getY());
+							this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.z", p.getLocation().getZ());
+							
+							this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.yaw", p.getLocation().getYaw());
+							this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.pitch", p.getLocation().getPitch());
+							
+							this.plugin.saveConfig();
+						} else {
+							sender.sendMessage("You must be in your homeworld to use this command.");
+						}
+					} else if(args[1].equalsIgnoreCase("rename"))
+					{
+						if(!p.hasPermission("leeroy.homeworld.npc.rename"))
+						{
+							sender.sendMessage("You do not have permission to rename your Homeworld NPC!");
+							return true;
+						}
+						
+						if(args.length < 3)
+						{
+							sender.sendMessage("Please use the format: /hw npc rename <name>");
+							return true;
+						}
+
+						this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.name", args[2]);
+						this.plugin.saveConfig();
+					}
+				}
+			}
+			
 			LeeroyHomeCommand command = this.plugin.sql.GetCommand(args[0]);
 			
 			if(!this.plugin.sql.PlayerHasCommand(command.commandString, p.getName()))
 			{
 				sender.sendMessage("You do not have access to that command.");
+				return true;
+			}
+			
+			// Check if it's native...
+			if(args[0].equalsIgnoreCase("spawn"))
+			{
+				if(p.getWorld().getName().equals("homeworld_" + p.getName()))
+				{
+					this.plugin.getConfig().set("homeworlds.homeworld_" + sender.getName() + ".spawn.x", p.getLocation().getX());
+					this.plugin.getConfig().set("homeworlds.homeworld_" + sender.getName() + ".spawn.y", p.getLocation().getY());
+					this.plugin.getConfig().set("homeworlds.homeworld_" + sender.getName() + ".spawn.z", p.getLocation().getZ());
+				
+					this.plugin.getConfig().set("homeworlds.homeworld_" + sender.getName() + ".spawn.yaw", p.getLocation().getYaw());
+					this.plugin.getConfig().set("homeworlds.homeworld_" + sender.getName() + ".spawn.pitch", p.getLocation().getPitch());
+				
+					this.plugin.saveConfig();
+				
+					sender.sendMessage("Homeworld spawn location set to your current location.");
+				} else {
+					sender.sendMessage("You must be in your homeworld to use this command.");
+				}
 				return true;
 			}
 			
