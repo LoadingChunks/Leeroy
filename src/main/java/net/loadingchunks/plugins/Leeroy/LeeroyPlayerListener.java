@@ -2,6 +2,7 @@ package net.loadingchunks.plugins.Leeroy;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -35,7 +36,14 @@ public class LeeroyPlayerListener implements Listener {
 		if(pl.getY() < -10)
 		{
 			event.getPlayer().setFallDistance(0);
-			event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
+			
+			ConfigurationSection override = plugin.getConfig().getConfigurationSection(event.getPlayer().getWorld().getName());
+			
+			if(override != null)
+			{
+				event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), override.getInt("spawn.x"), override.getInt("spawn.y"), override.getInt("spawn.z"), (float)override.getDouble("spawn.yaw"), (float)override.getDouble("spawn.pitch")));
+			} else
+				event.getPlayer().teleport(event.getPlayer().getWorld().getSpawnLocation());
 		}
 	}
 	
