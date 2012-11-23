@@ -88,7 +88,10 @@ public class PortNPC extends BasicNPC
 				making = true;
 			} else {
 				this.plugin.getLogger().warning("CAUGHT UN-ADDED HOMEWORLD FOLDER: " + worldDestinationFolder.getAbsolutePath());
-			}
+				for(String command : (List<String>)this.plugin.getConfig().getStringList("events.onBuild"))
+				{
+					this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), command.replace("{player}", p.getName()));	
+				}			}
 		}
 
 		if(l == null && making)
