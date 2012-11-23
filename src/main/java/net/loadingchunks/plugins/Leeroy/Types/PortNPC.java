@@ -2,6 +2,7 @@ package net.loadingchunks.plugins.Leeroy.Types;
 
 import java.util.List;
 import java.util.Random;
+import java.io.File;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
@@ -78,9 +79,16 @@ public class PortNPC extends BasicNPC
 
 		if(!this.plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + player.getName()))
 		{
-			player.sendMessage("<" + this.name + "> We're just building your homeworld, right click me again to go there!");
-			l = this.makeWorld(player);
-			making = true;
+			File worldDestinationFolder = new File(plugin.getServer().getWorldContainer().getAbsoluteFile() + File.separator + "homeworld_" + player.getName());
+
+			if(!worldDestinationFolder.exists())
+			{
+				player.sendMessage("<" + this.name + "> We're just building your homeworld, right click me again to go there!");
+				l = this.makeWorld(player);
+				making = true;
+			} else {
+				this.plugin.getLogger().warning("CAUGHT UN-ADDED HOMEWORLD FOLDER: " + worldDestinationFolder.getAbsolutePath());
+			}
 		}
 
 		if(l == null && making)
