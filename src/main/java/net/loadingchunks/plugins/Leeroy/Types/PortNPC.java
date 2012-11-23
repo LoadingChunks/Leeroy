@@ -161,7 +161,7 @@ public class PortNPC extends BasicNPC
 				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), command.replace("{player}", p.getName()));	
 			}
 			
-			ConfigurationSection override = this.plugin.getConfig().getConfigurationSection("overrides.homeworld_" + p.getName());
+			ConfigurationSection override = this.plugin.getConfig().getConfigurationSection("overrides." + randworld);
 			
 			if(override != null)
 			{
