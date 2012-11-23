@@ -139,6 +139,11 @@ public class BasicNPC
 			}
 		}
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+		this.npc.setName(name);
+	}
 
 	public boolean IsNearby(Location e, Location l, Integer r, Integer h)
 	{	

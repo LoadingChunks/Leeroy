@@ -320,6 +320,16 @@ public class LeeroyCommands implements CommandExecutor
 							this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.pitch", p.getLocation().getPitch());
 							
 							this.plugin.saveConfig();
+							
+							sender.sendMessage("Your NPC will now spawn at your current position.");
+							
+							ButlerNPC npc = (ButlerNPC)this.plugin.NPCList.get("homeworld_" + p.getName() + "_butler");
+							
+							if(npc != null)
+							{
+								npc.npc.moveTo(p.getLocation());
+							}
+							
 						} else {
 							sender.sendMessage("You must be in your homeworld to use this command.");
 						}
@@ -339,10 +349,17 @@ public class LeeroyCommands implements CommandExecutor
 
 						this.plugin.getConfig().set("homeworlds.homeworld_" + p.getName() + ".butler.name", args[2]);
 						this.plugin.saveConfig();
+						
+						sender.sendMessage("Your Homeworld NPC will now be known by the name of '" + args[2] + "'");
+						ButlerNPC npc = (ButlerNPC)this.plugin.NPCList.get("homeworld_" + p.getName() + "_butler");
+						
+						if(npc != null)
+							npc.setName(args[2]);
 					}
 				}
+				return true;
 			}
-			
+
 			LeeroyHomeCommand command = this.plugin.sql.GetCommand(args[0]);
 			
 			if(!this.plugin.sql.PlayerHasCommand(command.commandString, p.getName()))
