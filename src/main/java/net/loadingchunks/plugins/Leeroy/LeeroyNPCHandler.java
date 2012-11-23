@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import net.loadingchunks.plugins.Leeroy.Types.*;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class LeeroyNPCHandler {
 	
@@ -24,6 +25,14 @@ public class LeeroyNPCHandler {
 			bytesOfMessage = (l + Long.toString(System.currentTimeMillis())).toString().getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
+		}
+		
+		ConfigurationSection override = this.plugin.getConfig().getConfigurationSection("homeworlds." + world);
+		
+		if(override != null && type.equalsIgnoreCase("butler"))
+		{
+			l = new Location(l.getWorld(), override.getInt("butler.x"), override.getInt("butler.y"), (float)override.getInt("butler.z"), (float)override.getDouble("butler.yaw"), (float)override.getDouble("butler.pitch"));
+			name = override.getString("butler.name");
 		}
 		
 		try {

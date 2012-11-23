@@ -8,6 +8,7 @@ import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -101,7 +102,15 @@ public class PortNPC extends BasicNPC
 					return;
 
 				if(plugin.mvcore.getMVWorldManager().isMVWorld("homeworld_" + p.getName()) && plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + p.getName()))
-					p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
+				{
+					ConfigurationSection override = plugin.getConfig().getConfigurationSection("homeworlds.homeworld_" + p.getName());
+					
+					if(override != null)
+					{
+						p.teleport(new Location(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getCBWorld(), override.getInt("spawn.x"), override.getInt("spawn.y"), override.getInt("spawn.z"), (float)override.getDouble("spawn.yaw"), (float)override.getDouble("spawn.pitch")));
+					} else
+						p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
+				}
 				else
 					plugin.mvcore.getLogger().warning("[LEEROY] Something is odd! " + p.getName() + "'s homeworld isn't loading!");
 			}
@@ -140,19 +149,25 @@ public class PortNPC extends BasicNPC
 			this.plugin.log.info("[LEEROY] Picking from " + this.plugin.getConfig().getStringList("general.templates").size() + " templates.");
 			
 			int randomnum = rand.nextInt(this.plugin.getConfig().getStringList("general.templates").size());
-			
-			if(randomnum != 0)
-				randomnum--;
-			
-			String randworld = (String) this.plugin.getConfig().getList("general.templates").get(randomnum);
+
+			String randworld = this.plugin.getConfig().getStringList("general.templates").get(randomnum);
 			
 			LeeroyUtils.DuplicateWorld(this.plugin.getServer().getWorld(randworld), this.plugin, "homeworld_" + p.getName());
 			
-			this.plugin.log.info("[LEEROY] Adding to WM...");
+			this.plugin.log.info("[LEEROY] Adding to WM... (Using Template #" + randomnum + ", aka " + randworld + ")");
 			
 			for(String command : (List<String>)this.plugin.getConfig().getStringList("events.onBuild"))
 			{
 				this.plugin.getServer().dispatchCommand((CommandSender) (this.plugin.getServer().getConsoleSender()), command.replace("{player}", p.getName()));	
+			}
+			
+			ConfigurationSection override = this.plugin.getConfig().getConfigurationSection("overrides.homeworld_" + p.getName());
+			
+			if(override != null)
+			{
+				this.plugin.getLogger().info("[LEEROY] Adding overrides...");
+				this.plugin.getConfig().createSection("homeworlds.homeworld_" + p.getName(), override.getValues(true));
+				this.plugin.saveConfig();
 			}
 
 			if(!this.plugin.getMVCore().getMVWorldManager().loadWorld("homeworld_" + p.getName()))

@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -228,8 +229,10 @@ public class LeeroyCommands implements CommandExecutor
 					} else if (w.getPlayers().size() > 0 && w.getName().startsWith("homeworld_") && !LeeroyUtils.hasNPC(plugin, w.getName()))
 					{
 						plugin.log.info("[LEEROY] No NPC found in loaded world " + w.getName());
+						String name = plugin.getConfig().getString("home.butler.name");
+											
 						Location nl = new Location(w, plugin.getConfig().getDouble("home.butler.x"), plugin.getConfig().getDouble("home.butler.y"), plugin.getConfig().getDouble("home.butler.z"));
-						plugin.npcs.spawn("butler",plugin.getConfig().getString("home.butler.name"), nl, "", "", "", "", false, w.getName(), w.getName() + "_butler");
+						plugin.npcs.spawn("butler",name, nl, "", "", "", "", false, w.getName(), w.getName() + "_butler");
 					}
 				}
 				return true;
@@ -457,7 +460,14 @@ public class LeeroyCommands implements CommandExecutor
 				return true;
 			}
 			
-			p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.inviteList.get(p.getName())).getSpawnLocation());
+			ConfigurationSection override = plugin.getConfig().getConfigurationSection("homeworlds." + plugin.inviteList.get(p.getName()));
+			
+			if(override != null)
+			{
+				p.teleport(new Location(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + plugin.inviteList.get(p.getName())).getCBWorld(), override.getInt("spawn.x"), override.getInt("spawn.y"), override.getInt("spawn.z"), (float)override.getDouble("spawn.yaw"), (float)override.getDouble("spawn.pitch")));
+			} else
+				p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
+
 			plugin.getServer().getPlayer(plugin.inviteList.get(p.getName()).replace("homeworld_", "")).sendMessage(ChatColor.AQUA + p.getDisplayName() + " has accepted your invitation.");
 			
 			return true;
