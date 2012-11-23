@@ -39,7 +39,7 @@ public class LeeroyPlayerListener implements Listener {
 			
 			ConfigurationSection override = plugin.getConfig().getConfigurationSection(event.getPlayer().getWorld().getName());
 			
-			if(override != null)
+			if(override != null && override.contains("spawn"))
 			{
 				event.getPlayer().teleport(new Location(event.getPlayer().getWorld(), override.getInt("spawn.x"), override.getInt("spawn.y"), override.getInt("spawn.z"), (float)override.getDouble("spawn.yaw"), (float)override.getDouble("spawn.pitch")));
 			} else

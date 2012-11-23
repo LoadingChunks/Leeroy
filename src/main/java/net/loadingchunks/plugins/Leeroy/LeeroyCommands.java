@@ -555,7 +555,7 @@ public class LeeroyCommands implements CommandExecutor
 			
 			ConfigurationSection override = plugin.getConfig().getConfigurationSection("homeworlds." + plugin.inviteList.get(p.getName()));
 			
-			if(override != null)
+			if(override != null && override.contains("spawn"))
 			{
 				p.teleport(new Location(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + plugin.inviteList.get(p.getName())).getCBWorld(), override.getInt("spawn.x"), override.getInt("spawn.y"), override.getInt("spawn.z"), (float)override.getDouble("spawn.yaw"), (float)override.getDouble("spawn.pitch")));
 			} else

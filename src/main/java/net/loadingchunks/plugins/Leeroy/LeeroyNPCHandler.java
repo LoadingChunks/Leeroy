@@ -29,10 +29,13 @@ public class LeeroyNPCHandler {
 		
 		ConfigurationSection override = this.plugin.getConfig().getConfigurationSection("homeworlds." + world);
 		
-		if(override != null && type.equalsIgnoreCase("butler"))
+		if(override != null && type.equalsIgnoreCase("butler") && override.contains("butler"))
 		{
-			l = new Location(l.getWorld(), override.getInt("butler.x"), override.getInt("butler.y"), (float)override.getInt("butler.z"), (float)override.getDouble("butler.yaw"), (float)override.getDouble("butler.pitch"));
-			name = override.getString("butler.name");
+			if(override.contains("butler.name"))
+				l = new Location(l.getWorld(), override.getInt("butler.x"), override.getInt("butler.y"), (float)override.getInt("butler.z"), (float)override.getDouble("butler.yaw"), (float)override.getDouble("butler.pitch"));
+			
+			if(override.contains("butler.spawn"))
+				name = override.getString("butler.name");
 		}
 		
 		try {

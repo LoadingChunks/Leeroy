@@ -116,7 +116,7 @@ public class PortNPC extends BasicNPC
 				{
 					ConfigurationSection override = plugin.getConfig().getConfigurationSection("homeworlds.homeworld_" + p.getName());
 					
-					if(override != null)
+					if(override != null && override.contains("spawn"))
 					{
 						p.teleport(new Location(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getCBWorld(), override.getInt("spawn.x"), override.getInt("spawn.y"), override.getInt("spawn.z"), (float)override.getDouble("spawn.yaw"), (float)override.getDouble("spawn.pitch")));
 					} else
@@ -174,7 +174,7 @@ public class PortNPC extends BasicNPC
 			
 			ConfigurationSection override = this.plugin.getConfig().getConfigurationSection("overrides." + randworld);
 			
-			if(override != null)
+			if(override != null && override.contains("spawn"))
 			{
 				this.plugin.getLogger().info("[LEEROY] Adding overrides...");
 				this.plugin.getConfig().createSection("homeworlds.homeworld_" + p.getName(), override.getValues(true));
