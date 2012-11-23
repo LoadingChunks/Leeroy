@@ -362,6 +362,12 @@ public class LeeroyCommands implements CommandExecutor
 
 			LeeroyHomeCommand command = this.plugin.sql.GetCommand(args[0]);
 			
+			if(command == null)
+			{
+				sender.sendMessage("No such Homeworld command!");
+				return false;
+			}
+			
 			if(!this.plugin.sql.PlayerHasCommand(command.commandString, p.getName()))
 			{
 				sender.sendMessage("You do not have access to that command.");
