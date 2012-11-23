@@ -1,6 +1,6 @@
 name: Leeroy
 main: net.loadingchunks.plugins.Leeroy.Leeroy
-version: 0.9
+version: 1.5
 depend: [Multiverse-Core]
 commands:
     leeroy:

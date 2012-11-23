@@ -52,6 +52,7 @@ public class LeeroySQL {
 
 	public void AddNPC(String id, String name, String type, Location loc, String world)
 	{
+		SQLPing();
 		try {
 			PreparedStatement stat = con.prepareStatement("INSERT INTO `leeroy_npc` (id, name, type, x, y, z, yaw, pitch,world) VALUES (?,?,?,?,?,?,?,?,?)");
 
@@ -71,6 +72,7 @@ public class LeeroySQL {
 	
 	public void RemoveNPC(String id)
 	{
+		SQLPing();
 		try {
 			this.plugin.log.info("[LEEROY] Deleting NPC from Database. (ID: " + id + ")");
 			PreparedStatement stat = con.prepareStatement("DELETE FROM `leeroy_npc` WHERE id = ?");
@@ -83,6 +85,7 @@ public class LeeroySQL {
 	
 	public void PopNPCs()
 	{
+		SQLPing();
 		try {
 			PreparedStatement stat = con.prepareStatement("SELECT * FROM `leeroy_npc`");
 			ResultSet result = stat.executeQuery();
@@ -101,6 +104,7 @@ public class LeeroySQL {
 	
 	public LeeroyHomeCommand GetCommand(String command)
 	{
+		SQLPing();
 		try {
 			PreparedStatement stat = con.prepareStatement("SELECT * FROM `leeroy_commands` WHERE command = ?");
 			stat.setString(1, command);
@@ -127,6 +131,7 @@ public class LeeroySQL {
 	public LeeroyHomeCommand[] GetCommands()
 	{
 		ArrayList<LeeroyHomeCommand> commands = new ArrayList<LeeroyHomeCommand>();
+		SQLPing();
 		
 		if(this.lastCommandGet > ((System.currentTimeMillis() / 1000L) - 60))
 			return this.commCache;
@@ -171,6 +176,7 @@ public class LeeroySQL {
 	
 	public Boolean PlayerHasCommand(String command, String player)
 	{
+		SQLPing();
 		try {
 			PreparedStatement stat = con.prepareStatement("SELECT * FROM `leeroy_commandpurchases` WHERE command = ? AND player = ?");
 			stat.setString(1, command);
@@ -187,6 +193,7 @@ public class LeeroySQL {
 	
 	public Boolean PurchaseCommand(String command, String player)
 	{
+		SQLPing();
 		try {
 			PreparedStatement stat = con.prepareStatement("INSERT INTO `leeroy_commandpurchases` (`command`,`player`,`time`) VALUES (?,?,NOW())");
 			stat.setString(1,command);
