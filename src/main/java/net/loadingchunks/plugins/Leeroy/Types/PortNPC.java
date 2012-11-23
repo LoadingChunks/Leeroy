@@ -78,13 +78,13 @@ public class PortNPC extends BasicNPC
 
 		if(!this.plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + player.getName()))
 		{
+			player.sendMessage("<" + this.name + "> We're just building your homeworld, right click me again to go there!");
 			l = this.makeWorld(player);
 			making = true;
 		}
 
 		if(l == null && making)
 		{
-			player.sendMessage("<" + this.name + "> We're just building your homeworld, right click me again to go there!");
 			return;
 		}
 
