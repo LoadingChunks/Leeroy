@@ -6,6 +6,8 @@ import java.io.File;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
+import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
+import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -15,8 +17,6 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
-import com.topcat.npclib.entity.HumanNPC;
-import com.topcat.npclib.nms.NpcEntityTargetEvent;
 
 public class PortNPC extends BasicNPC
 {	

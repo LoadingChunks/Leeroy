@@ -9,9 +9,9 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.MetadataValue;
 
-import com.topcat.npclib.nms.NpcEntityTargetEvent;
 
 import net.loadingchunks.plugins.Leeroy.Types.*;
+import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
 
 import java.util.List;
 

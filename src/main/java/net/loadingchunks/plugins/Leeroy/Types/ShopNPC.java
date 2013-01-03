@@ -3,13 +3,14 @@ package net.loadingchunks.plugins.Leeroy.Types;
 import java.util.List;
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyHomeCommand;
+import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
+import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityTargetEvent;
-import com.topcat.npclib.entity.HumanNPC;
-import com.topcat.npclib.nms.NpcEntityTargetEvent;
 
 public class ShopNPC extends BasicNPC
 {	

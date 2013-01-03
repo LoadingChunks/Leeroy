@@ -1,7 +1,11 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
-import net.minecraft.server.MathHelper;
+import net.loadingchunks.vendor.topcat.npclib.NPCManager;
+import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
+import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
+import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
+import net.minecraft.server.v1_4_6.MathHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -12,10 +16,6 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import com.topcat.npclib.NPCManager;
-import com.topcat.npclib.entity.HumanNPC;
-import com.topcat.npclib.nms.NpcEntityTargetEvent;
-import com.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
 
 /* When adding new NPC:
  *  Add handling to LeeroyNPCHandler.java

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import net.loadingchunks.plugins.Leeroy.Types.BasicNPC;
 import net.loadingchunks.plugins.Leeroy.Types.ButlerNPC;
+import net.minecraft.server.v1_4_6.EntityPlayer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,7 +19,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
 
 public class LeeroyCommands implements CommandExecutor
 {
@@ -214,7 +215,10 @@ public class LeeroyCommands implements CommandExecutor
 							plugin.log.info("[LEEROY] Redundant NPC Found in " + w.getName());
 							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.moveTo(plugin.mvcore.getMVWorldManager().getFirstSpawnWorld().getSpawnLocation());
 							((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.getEntity().getBukkitEntity().remove();
-							((CraftWorld) w).getHandle().getPlayerManager().a().removeEntity(((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.getEntity());
+							
+							if(((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.getEntity() instanceof EntityPlayer)
+								((CraftWorld) w).getHandle().getServer().getPlayer((EntityPlayer)((ButlerNPC)plugin.NPCList.get(w.getName() + "_butler")).npc.getEntity()).remove();
+
 							plugin.NPCList.remove(w.getName() + "_butler");
 							plugin.log.info("[LEEROY] Redundant NPC " + w.getName() + "_butler has been removed.");
 						}
