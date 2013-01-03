@@ -5,20 +5,20 @@
   <version>1.5-SNAPSHOT</version>
   <name>Leeroy</name>
     <repositories>
-    <repository>
-      <id>bukkit-repo</id>
-      <url>http://repo.bukkit.org/content/groups/public/</url>
-    </repository>
+        <repository>
+            <id>lc-repo</id>
+            <url>http://repo.loadingchunks.net/content/groups/bukkit/</url>
+        </repository>
+
+        <repository>
+            <id>vault-repo</id>
+            <url>http://ci.herocraftonline.com/plugin/repository/everything/</url>
+        </repository>
 	
-	<repository>
-		<id>vault-repo</id>
-		<url>http://ci.herocraftonline.com/plugin/repository/everything/</url>
-	</repository>
-	
-	<repository>
-		<id>multiverse-repo</id>
-		<url>http://repo.onarandombox.com/content/repositories/multiverse/</url>
-	</repository>
+        <repository>
+            <id>multiverse-repo</id>
+            <url>http://repo.onarandombox.com/content/repositories/multiverse/</url>
+        </repository>
   </repositories>
   
   
@@ -27,7 +27,7 @@
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
       <!-- Bukkit API Version, change if out dated -->
-      <version>1.4.5-R0.1-SNAPSHOT</version>
+      <version>1.4.5-R0.2</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
@@ -44,7 +44,8 @@
     <dependency>
       <groupId>net.milkbowl.vault</groupId>
       <artifactId>Vault</artifactId>
-      <version>1.2.19-SNAPSHOT</version>
+      <version>1.2.21-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
     
     <dependency>

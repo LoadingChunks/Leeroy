@@ -18,7 +18,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
-import org.fusesource.jansi.Ansi.Color;
 import org.bukkit.craftbukkit.CraftWorld;
 
 public class LeeroyCommands implements CommandExecutor

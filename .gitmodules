@@ -1,0 +1,3 @@
+[submodule "lib/NPCLib"]
+	path = lib/NPCLib
+	url = https://github.com/LoadingChunks/NPCLib.git
