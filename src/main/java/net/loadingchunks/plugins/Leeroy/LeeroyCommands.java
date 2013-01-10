@@ -549,6 +549,12 @@ public class LeeroyCommands implements CommandExecutor
 				sender.sendMessage("Nobody is in that world any more.");
 				return true;
 			}
+			
+			if(plugin.mvcore.getMVWorldManager().getMVWorld((plugin.inviteList.get(p.getName()))) == null)
+			{
+				sender.sendMessage("That world doesn't seem to be loaded any more.");
+				return true;
+			}
 
 			if(plugin.getServer().getPlayer(plugin.inviteList.get(p.getName()).replace("homeworld_", "")) == null)
 			{
@@ -560,13 +566,13 @@ public class LeeroyCommands implements CommandExecutor
 			
 			if(override != null && override.contains("spawn"))
 			{
-				p.teleport(new Location(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + plugin.inviteList.get(p.getName())).getCBWorld(), 
+				p.teleport(new Location(plugin.mvcore.getMVWorldManager().getMVWorld(plugin.inviteList.get(p.getName())).getCBWorld(), 
 						override.getInt("spawn.x"), override.getInt("spawn.y"),
 						override.getInt("spawn.z"),
 						(float)override.getDouble("spawn.yaw"),
 						(float)override.getDouble("spawn.pitch")));
 			} else
-				p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld("homeworld_" + p.getName()).getSpawnLocation());
+				p.teleport(plugin.mvcore.getMVWorldManager().getMVWorld(p.getName()).getSpawnLocation());
 
 			plugin.getServer().getPlayer(plugin.inviteList.get(p.getName()).replace("homeworld_", "")).sendMessage(ChatColor.AQUA + p.getDisplayName() + " has accepted your invitation.");
 			
