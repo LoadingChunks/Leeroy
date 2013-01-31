@@ -118,7 +118,6 @@ public class LeeroyCommands implements CommandExecutor
 					if(e instanceof HumanEntity)
 					{
 						List<MetadataValue> md = e.getMetadata("leeroy_id");
-						List<MetadataValue> mdtype = e.getMetadata("leeroy_type");
 
 						if(md.size() > 0)
 						{
@@ -166,7 +165,6 @@ public class LeeroyCommands implements CommandExecutor
 					if(e instanceof HumanEntity)
 					{
 						List<MetadataValue> md = e.getMetadata("leeroy_id");
-						List<MetadataValue> mdtype = e.getMetadata("leeroy_type");
 
 						if(md.size() > 0)
 						{
