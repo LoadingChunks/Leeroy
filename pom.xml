@@ -6,8 +6,13 @@
   <name>Leeroy</name>
     <repositories>
         <repository>
-            <id>lc-repo</id>
+            <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        
+        <repository>
+            <id>lc-repo</id>
+            <url>https://ci.loadingchunks.net/plugin/repository/everything/</url>
         </repository>
 
         <repository>
@@ -39,6 +44,13 @@
       <scope>provided</scope>
     </dependency>
     
+    <dependency>
+      <groupId>net.LoadingChunks.vendor.topcat</groupId>
+      <artifactId>NPCLib</artifactId>
+      <version>1.4.7-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
     	<groupId>com.onarandombox.multiversecore</groupId>
     	<artifactId>Multiverse-Core</artifactId>
