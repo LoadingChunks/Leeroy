@@ -106,7 +106,9 @@
                     <filters>
                         <filter>
                             <artifact>net.LoadingChunks.vendor.topcat:NPCLib</artifact>
-                            <include>**</include>
+                            <includes>
+                            	<include>**</include>
+                            </includes>
                         </filter>
                     </filters>
                 </configuration>
