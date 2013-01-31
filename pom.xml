@@ -7,7 +7,7 @@
     <repositories>
         <repository>
             <id>lc-repo</id>
-            <url>http://repo.loadingchunks.net/content/groups/bukkit/</url>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
         </repository>
 
         <repository>
@@ -27,7 +27,7 @@
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>
       <!-- Bukkit API Version, change if out dated -->
-      <version>1.4.6-R0.3</version>
+      <version>1.4.7-R1.0</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>

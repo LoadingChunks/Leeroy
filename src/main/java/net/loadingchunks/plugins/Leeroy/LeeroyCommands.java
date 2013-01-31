@@ -6,7 +6,7 @@ import java.util.Set;
 
 import net.loadingchunks.plugins.Leeroy.Types.BasicNPC;
 import net.loadingchunks.plugins.Leeroy.Types.ButlerNPC;
-import net.minecraft.server.v1_4_6.EntityPlayer;
+import net.minecraft.server.v1_4_R1.EntityPlayer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,7 +19,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.craftbukkit.v1_4_6.CraftWorld;
+import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 
 public class LeeroyCommands implements CommandExecutor
 {

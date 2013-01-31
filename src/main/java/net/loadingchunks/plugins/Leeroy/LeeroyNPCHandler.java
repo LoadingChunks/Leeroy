@@ -33,7 +33,7 @@ public class LeeroyNPCHandler {
 		{
 			if(override.contains("butler.spawn"))
 				l = new Location(l.getWorld(), override.getInt("butler.x"), override.getInt("butler.y"), (float)override.getInt("butler.z"), (float)override.getDouble("butler.yaw"), (float)override.getDouble("butler.pitch"));
-			
+
 			if(override.contains("butler.name"))
 				name = override.getString("butler.name");
 		}
