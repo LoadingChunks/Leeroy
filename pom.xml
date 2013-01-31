@@ -91,6 +91,29 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+            <execution>
+                <phase>packahe</phase>
+                <goals>
+                    <goal>shade</goal>
+                </goals>
+                <configuration>
+                    <filters>
+                        <filter>
+                            <artifact>net.LoadingChunks.vendor.topcat:NPCLib</artifact>
+                            <includes>**</includes>
+                        </filter>
+                    </filters>
+                </configuration>
+            </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 </project>
