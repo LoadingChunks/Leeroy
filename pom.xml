@@ -48,7 +48,7 @@
       <groupId>net.LoadingChunks.vendor.topcat</groupId>
       <artifactId>NPCLib</artifactId>
       <version>1.4.7-SNAPSHOT</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
