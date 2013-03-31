@@ -103,7 +103,6 @@
                     <goal>shade</goal>
                 </goals>
                 <configuration>
-<<<<<<< HEAD
                     <artifactSet>
                         <includes>
                             <include>net.LoadingChunks.vendor.topcat:NPCLib</include>
