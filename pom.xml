@@ -103,12 +103,11 @@
                     <goal>shade</goal>
                 </goals>
                 <configuration>
-                    <filters>
-                        <filter>
-                            <artifact>net.LoadingChunks.vendor.topcat:NPCLib</artifact>
-                            <includes>**</includes>
-                        </filter>
-                    </filters>
+                    <artifactSet>
+                        <includes>
+                            <include>net.LoadingChunks.vendor.topcat:NPCLib</include>
+                        </includes>
+                    </artifactSet>
                 </configuration>
             </execution>
         </executions>
