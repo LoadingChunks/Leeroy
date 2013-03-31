@@ -5,7 +5,7 @@ import net.loadingchunks.vendor.topcat.npclib.NPCManager;
 import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
 import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
 import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
-import net.minecraft.server.v1_4_R1.MathHelper;
+import net.minecraft.server.v1_5_R2.MathHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
