@@ -9,6 +9,7 @@ import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
 import net.LoadingChunks.vendor.npclib.HumanNPC;
 import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
@@ -27,6 +28,7 @@ public class PortNPC extends BasicNPC
 
 	public PortNPC(Leeroy plugin, String name, Location l, String id, String msg1, String msg2, String msg3, String msg4, boolean isnew, String world)
 	{
+		
 		super(plugin, name, l, id, msg1, msg2, msg3, msg4, isnew, world, "port", "leeroy_npcport");
 	}
 
@@ -76,6 +78,11 @@ public class PortNPC extends BasicNPC
 		final Player p = player;
 		Location l = null;
 		Boolean making = false;
+		
+		if(!player.hasPermission("leeroy.homeworld")) {
+			player.sendMessage("<" + this.name + "> You need to register as a member using " + ChatColor.GREEN + "/register your@email.here" + ChatColor.RESET + " to use homeworlds.");
+			return;
+		}
 
 		if(!this.plugin.mvcore.getMVWorldManager().loadWorld("homeworld_" + player.getName()))
 		{
@@ -83,7 +90,7 @@ public class PortNPC extends BasicNPC
 
 			if(!worldDestinationFolder.exists())
 			{
-				player.sendMessage("<" + this.name + "> We're just building your homeworld, right click me again to go there!");
+				player.sendMessage("<" + this.name + "> We're just building your homeworld, left click me again to go there!");
 				l = this.makeWorld(player);
 				making = true;
 			} else {
@@ -100,7 +107,6 @@ public class PortNPC extends BasicNPC
 		}
 
 		player.sendMessage("<" + this.name + "> You'll be transported to your homeworld in 5 seconds");
-		player.sendMessage("<" + this.name + "> Thank you for using the Chunky Transport System!");
 		
 		for(String command : this.plugin.getConfig().getStringList("events.onEnter"))
 		{
@@ -183,7 +189,7 @@ public class PortNPC extends BasicNPC
 
 			if(!this.plugin.getMVCore().getMVWorldManager().loadWorld("homeworld_" + p.getName()))
 			{
-				p.sendMessage("<" + this.name + "> Something went wrong! Please alert an admin and provide Error Code: 404");
+				p.sendMessage("<" + this.name + "> Something went wrong! Please alert an admin and provide Error Code: 418");
 				return null;
 			}
 		}

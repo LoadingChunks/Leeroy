@@ -19,6 +19,11 @@ public class LeeroyUtils {
 	 * @param destinationName
 	 */
 	public static void DuplicateWorld(World world, Leeroy plugin, String destinationName) {
+		
+		if(world == null) {
+			plugin.getLogger().severe("World does not exist! Tried to make " + destinationName);
+			return;
+		}
 
 		world.save();
 
