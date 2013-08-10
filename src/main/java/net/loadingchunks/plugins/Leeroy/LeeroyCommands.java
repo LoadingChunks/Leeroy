@@ -426,9 +426,9 @@ public class LeeroyCommands implements CommandExecutor
 					continue;
 				}
 				
-				switch(command.commandCheck[argcount-1])
+				switch(LeeroyCommandTypes.fromString(command.commandCheck[argcount-1]))
 				{
-					case "Player":
+					case PLAYER:
 						if(this.plugin.getServer().getPlayer(a) == null)
 						{
 							sender.sendMessage(ChatColor.RED + "Player " + a + " not found.");
@@ -437,7 +437,7 @@ public class LeeroyCommands implements CommandExecutor
 						}
 						break;
 						
-					case "Integer":
+					case INTEGER:
 						try {
 							Integer.parseInt(a);
 						} catch(NumberFormatException e)
@@ -448,7 +448,7 @@ public class LeeroyCommands implements CommandExecutor
 						}
 						break;
 						
-					case "String":
+					case STRING:
 						break;
 					
 					default:
