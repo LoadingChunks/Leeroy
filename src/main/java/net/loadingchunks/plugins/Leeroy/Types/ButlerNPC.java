@@ -2,9 +2,9 @@ package net.loadingchunks.plugins.Leeroy.Types;
 
 import java.util.List;
 
+import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent;
 import net.loadingchunks.plugins.Leeroy.Leeroy;
-import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
-import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
+import net.LoadingChunks.vendor.npclib.HumanNPC;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -74,7 +74,7 @@ public class ButlerNPC extends BasicNPC
 
 	// Player right clicks
 	@Override
-	public void onRightClick(final Player player, NpcEntityTargetEvent event)
+	public void onRightClick(final Player player, NPCEntityTargetEvent event)
 	{
 		player.sendMessage("<" + this.name + "> You'll be transported to the main land in 5 seconds");
 		player.sendMessage("<" + this.name + "> Thank you for using the Chunky Transport System!");

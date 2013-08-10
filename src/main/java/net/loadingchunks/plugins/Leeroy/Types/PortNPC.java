@@ -6,8 +6,8 @@ import java.io.File;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyUtils;
-import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
-import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
+import net.LoadingChunks.vendor.npclib.HumanNPC;
+import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -71,7 +71,7 @@ public class PortNPC extends BasicNPC
 	}
 
 	// Player right clicks
-	public void onRightClick(Player player, NpcEntityTargetEvent event)
+	public void onRightClick(Player player, NPCEntityTargetEvent event)
 	{
 		final Player p = player;
 		Location l = null;
@@ -144,7 +144,7 @@ public class PortNPC extends BasicNPC
 		this.npc.animateArmSwing();
 		
 		if(this.IsNearby(monster.getLocation(), event.getDamager().getLocation(), 2, 2))
-			monster.damage(5);
+			monster.damage(0.0);
 	}
 
 	public Location makeWorld(Player p)

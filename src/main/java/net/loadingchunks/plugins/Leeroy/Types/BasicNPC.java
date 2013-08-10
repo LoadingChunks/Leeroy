@@ -1,11 +1,11 @@
 package net.loadingchunks.plugins.Leeroy.Types;
 
 import net.loadingchunks.plugins.Leeroy.Leeroy;
-import net.loadingchunks.vendor.topcat.npclib.NPCManager;
-import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
-import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
-import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent.NpcTargetReason;
-import net.minecraft.server.v1_5_R2.MathHelper;
+import net.LoadingChunks.vendor.npclib.NPCManager;
+import net.LoadingChunks.vendor.npclib.HumanNPC;
+import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent;
+import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent.NPCTargetReason;
+import net.minecraft.server.v1_6_R2.MathHelper;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -64,15 +64,15 @@ public class BasicNPC
 		// Doesn't do anything in basic.
 	}
 	
-	public void onTarget(Player player, NpcEntityTargetEvent event)
+	public void onTarget(Player player, NPCEntityTargetEvent event)
 	{
-		if(event.getNpcReason() == NpcTargetReason.NPC_RIGHTCLICKED)
+		if(event.getNPCReason() == NPCTargetReason.NPC_RIGHTCLICKED)
 			this.onRightClick(player, event);
-		else if(event.getNpcReason() == NpcTargetReason.NPC_BOUNCED)
+		else if(event.getNPCReason() == NPCTargetReason.NPC_BOUNCED)
 			this.onBounce(player, event);
 	}
 
-	public void onRightClick(Player player, NpcEntityTargetEvent event)
+	public void onRightClick(Player player, NPCEntityTargetEvent event)
 	{
 		// Doesn't do anything in basic.
 	}

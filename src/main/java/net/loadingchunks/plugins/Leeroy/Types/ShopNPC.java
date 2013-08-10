@@ -3,8 +3,8 @@ package net.loadingchunks.plugins.Leeroy.Types;
 import java.util.List;
 import net.loadingchunks.plugins.Leeroy.Leeroy;
 import net.loadingchunks.plugins.Leeroy.LeeroyHomeCommand;
-import net.loadingchunks.vendor.topcat.npclib.entity.HumanNPC;
-import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
+import net.LoadingChunks.vendor.npclib.HumanNPC;
+import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -65,7 +65,7 @@ public class ShopNPC extends BasicNPC
 	}
 
 	// Player right clicks
-	public void onRightClick(Player player, NpcEntityTargetEvent event)
+	public void onRightClick(Player player, NPCEntityTargetEvent event)
 	{
 		final Player p = player;
 		LeeroyHomeCommand[] commands = this.plugin.sql.GetCommands();

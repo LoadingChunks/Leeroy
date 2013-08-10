@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Leeroy</groupId>
   <artifactId>Leeroy</artifactId>
-  <version>1.5.1-SNAPSHOT</version>
+  <version>1.6.2-SNAPSHOT</version>
   <name>Leeroy</name>
     <repositories>
         <repository>
@@ -32,7 +32,7 @@
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>
       <!-- Bukkit API Version, change if out dated -->
-      <version>1.5.1-R0.1-SNAPSHOT</version>
+      <version>1.6.2-R0.1</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
@@ -45,9 +45,9 @@
     </dependency>
     
     <dependency>
-      <groupId>net.LoadingChunks.vendor.topcat</groupId>
+      <groupId>net.LoadingChunks.vendor</groupId>
       <artifactId>NPCLib</artifactId>
-      <version>1.5.1-SNAPSHOT</version>
+      <version>1.6.2.1</version>
       <scope>compile</scope>
     </dependency>
 
@@ -105,7 +105,7 @@
                 <configuration>
                     <artifactSet>
                         <includes>
-                            <include>net.LoadingChunks.vendor.topcat:NPCLib</include>
+                            <include>net.LoadingChunks.vendor:NPCLib</include>
                         </includes>
                     </artifactSet>
                 </configuration>

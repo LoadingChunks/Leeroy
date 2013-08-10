@@ -11,7 +11,7 @@ import org.bukkit.metadata.MetadataValue;
 
 
 import net.loadingchunks.plugins.Leeroy.Types.*;
-import net.loadingchunks.vendor.topcat.npclib.nms.NpcEntityTargetEvent;
+import net.LoadingChunks.vendor.npclib.NPCEntityTargetEvent;
 
 import java.util.List;
 
@@ -43,12 +43,12 @@ public class LeeroyNPCListener implements Listener
 			else if(mdtype.get(0).asString().equalsIgnoreCase("leeroy_npcshop"))
 				((ShopNPC)this.plugin.NPCList.get(md.get(0).asString())).onHit(event.getDamager(), event);			
 
-			event.setDamage(0);
+			event.setDamage(0.0);
 		}
 	}
 	
 	@EventHandler
-	public void onEntityTarget(NpcEntityTargetEvent event)
+	public void onEntityTarget(NPCEntityTargetEvent event)
 	{
 		if(event.getEntity() instanceof HumanEntity && event.getTarget() instanceof Player)
 		{
