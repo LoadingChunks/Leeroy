@@ -23,7 +23,7 @@ commands:
     hw:
         description: Used to control your homeworld using purchaseable upgrades.
         usage: |
-            "/hw <command> [arguments] - Used to execute upgrade commands."
+            "/hw command [arguments] - Used to execute upgrade commands."
     upgrade:
         description: Used to buy upgrades for your homeworld.
         usage: |

@@ -32,7 +32,7 @@
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>
       <!-- Bukkit API Version, change if out dated -->
-      <version>1.6.2-R0.1</version>
+      <version>1.6.4-R0.1-SNAPSHOT</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
@@ -47,7 +47,7 @@
     <dependency>
       <groupId>net.LoadingChunks.vendor</groupId>
       <artifactId>NPCLib</artifactId>
-      <version>1.6.2.1</version>
+      <version>1.6.4</version>
       <scope>compile</scope>
     </dependency>
 
